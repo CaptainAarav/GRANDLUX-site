@@ -31,7 +31,7 @@
 }
 
 .beginnings-section {
-    padding: 50px 50px;
+    padding: 130px 50px;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
@@ -41,7 +41,7 @@
     width: 50vh;
 }
 
-.beginnings-text-container {
+.section-text-container {
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -52,17 +52,34 @@
     height: 250px;
 }
 
-.beginnigns-text-title {
+.section-title {
     color: #c9a227;
     font-size: 30px;
     font-weight: 600;
     font-family: Inter, sans-serif;
 }
 
-.beginnings-text {
+.section-text {
+    width: 600px;
     color: black;
     font-size: 19px;
     font-weight: 400;
     font-family: Inter, sans-serif;
     line-height: 1.8;
+}
+
+.parternship-section {
+    background-color: #F8F3EB;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 80px 50px;
+    gap: 48px;
+}
+
+.partnership-logo {
+    border-radius: 15px;
+    max-width: 100%;
+    height: 400px;
+    justify-self: center;
 }

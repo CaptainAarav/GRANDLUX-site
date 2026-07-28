@@ -11,19 +11,19 @@ function Home() {
             </section>
             <section className="beginnings-section">
                 <img src="/FLX-logo.png" alt="FLX logo" className="FLX-logo" />
-                <div className="beginnings-text-container">
-                    <h2 className="beginnigns-text-title">OUR BEGINNING</h2>
-                    <p className="beginnings-text">
+                <div className="section-text-container">
+                    <h2 className="section-title">OUR BEGINNING</h2>
+                    <p className="section-text">
                         At first we wanted to launch the airline as FLX but that didn't really work out so we called it GRANDLUX. After a lot of work we got through it so here we are in our launching state stay tuned for updates on our nice VA.
                     </p>
                 </div>
             </section>
             <section className="parternship-section">
-                <div className="partership-text-container">
-                    <h2 className="partnership-text-title">PARTNERSHIPS</h2>
-                    <p className="partnership-text">
-                        Currently we have an ongoing partnership with LuxPlanes, A big thank you to him to make this happen. We have a lot in common bringing the aviation community closer to poeple that don't have a lot of knowlege in the field of aviation.
-                    </p>
+                <div className="section-text-container">
+                        <h2 className="section-title">PARTNERSHIPS</h2>
+                        <p className="section-text">
+                            Currently we have an ongoing partnership with LuxPlanes, A big thank you to him to make this happen. We have a lot in common bringing the aviation community closer to poeple that don't have a lot of knowlege in the field of aviation.
+                        </p>
                 </div>
                 <img src="/partnership-logo.png" alt="parternship-logo" className="partnership-logo" />
             </section>
