@@ -13,7 +13,7 @@ function App() {
                     <h1 className="navbar-title">GrandLux</h1>
                 </div>
                 <div className="navbar-links">
-                    <Link className="navbar-link" to="/">HOME</Link>
+                    <Link id="navbar-home-link" className="navbar-link" to="/">HOME</Link>
                     <Link className="navbar-link" to="/team">OUR TEAM</Link>
                     <Link className="navbar-link" to="/downloads">DOWNLOADS</Link>
                 </div>

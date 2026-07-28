@@ -1,0 +1,18 @@
+#navbar-home-link {
+    color: #f2f1ec;
+    border-bottom: 2px solid #c9a227;
+}
+
+.hero-section {
+    padding: 30px 0;
+    background-color: #F7F3EC;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.hero-logo {
+    height: 400px;
+}
