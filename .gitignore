@@ -1,1 +1,5 @@
 .idea/
+node_modules/
+.env
+client/dist/
+server/.env.DS_Store
