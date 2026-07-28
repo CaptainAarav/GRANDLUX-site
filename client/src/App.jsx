@@ -9,13 +9,13 @@ function App() {
         <>
             <nav className="navbar">
                 <div className="navbar-logo-title">
-                    <img src="./assets/grandlux-logo.png" alt="logo" className="logo" />
-                    <h1 className="navbar-title">Grandlux</h1>
+                    <img src="/grandlux-logo.png" alt="logo" className="navbar-logo" />
+                    <h1 className="navbar-title">GrandLux</h1>
                 </div>
                 <div className="navbar-links">
-                    <Link to="/">HOME</Link>
-                    <Link to="/team">OUR TEAM</Link>
-                    <Link to="/downloads">DOWNLOADS</Link>
+                    <Link className="navbar-link" to="/">HOME</Link>
+                    <Link className="navbar-link" to="/team">OUR TEAM</Link>
+                    <Link className="navbar-link" to="/downloads">DOWNLOADS</Link>
                 </div>
             </nav>
 
