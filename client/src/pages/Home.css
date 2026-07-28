@@ -4,15 +4,32 @@
 }
 
 .hero-section {
-    padding: 30px 0;
+    padding: 60px 0;
     background-color: #F7F3EC;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 30px;
 }
 
 .hero-logo {
-    height: 400px;
+    height: 180px;
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 15px;
+}
+
+.hero-title {
+    font-family: playfair display, sans-serif;
+    color: #c8262c;
+    font-size: 70px;
+    font-weight: bold;
+}
+
+.hero-subtitle {
+    font-family: Inter, sans-serif;
+    color: #55677a;
+    font-size: 20px;
+    font-weight: 400;
 }
