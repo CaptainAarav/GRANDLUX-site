@@ -18,6 +18,15 @@ function Home() {
                     </p>
                 </div>
             </section>
+            <section className="parternship-section">
+                <div className="partership-text-container">
+                    <h2 className="partnership-text-title">PARTNERSHIPS</h2>
+                    <p className="partnership-text">
+                        Currently we have an ongoing partnership with LuxPlanes, A big thank you to him to make this happen. We have a lot in common bringing the aviation community closer to poeple that don't have a lot of knowlege in the field of aviation.
+                    </p>
+                </div>
+                <img src="/partnership-logo.png" alt="parternship-logo" className="partnership-logo" />
+            </section>
         </>
     )
 }
