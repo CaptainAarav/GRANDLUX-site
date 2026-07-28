@@ -27,6 +27,23 @@ function Home() {
                 </div>
                 <img src="/partnership-logo.png" alt="parternship-logo" className="partnership-logo" />
             </section>
+            <section className="contact-section">
+                <div className="contact-container">
+                    <i className="fa-solid fa-circle-envelope"></i>
+                    <p className="email-title">Email</p>
+                    <a className="email-link" href="mailto:info@grandlux.lu">info@grandlux.lu</a>
+                </div>
+                <div className="contact-container">
+                    <i className="fa-jelly-fill fa-regular fa-thumbs-up"></i>
+                    <p className="socials-title">Socials</p>
+                    <div className="social-links">
+                        <i className="fa-brands fa-youtube"></i>
+                        <i className="fa-brands fa-discord"></i>
+                        <i className="fa-brands fa-tiktok"></i>
+                        <i className="fa-brands fa-instagram"></i>
+                    </div>
+                </div>
+            </section>
         </>
     )
 }
