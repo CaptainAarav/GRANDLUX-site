@@ -1,0 +1,73 @@
+.team-section {
+    flex: 1;
+    padding: 60px 30px;
+    background-color: #F7F3EC;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.team-title {
+    font-family: playfair display, sans-serif;
+    color: #c8262c;
+    font-size: 55px;
+    font-weight: bold;
+}
+
+.team-subtitle {
+    font-family: Inter, sans-serif;
+    color: #55677a;
+    font-size: 20px;
+    font-weight: 400;
+    text-align: center;
+}
+
+.team-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 30px;
+}
+
+.team-card {
+    background-color: #ffffff;
+    border-radius: 15px;
+    padding: 20px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    text-align: center;
+    box-shadow: 0 4px 16px rgba(27, 29, 34, 0.08);
+    transition: transform 0.2s ease-in-out;
+}
+
+.team-card:hover {
+    transform: translateY(-6px);
+}
+
+.team-card-image {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    border-radius: 10px;
+}
+
+.team-card-name {
+    font-family: Inter, sans-serif;
+    color: #1b1d22;
+    font-size: 26px;
+    font-weight: 600;
+}
+
+.team-card-role {
+    font-family: Inter, sans-serif;
+    color: #55677a;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}

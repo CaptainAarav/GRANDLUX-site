@@ -1,0 +1,115 @@
+.downloads-section {
+    flex: 1;
+    padding: 60px 30px;
+    background-color: #F7F3EC;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.downloads-title {
+    font-family: playfair display, sans-serif;
+    color: #c8262c;
+    font-size: 55px;
+    font-weight: bold;
+}
+
+.downloads-intro {
+    font-family: Inter, sans-serif;
+    color: #55677a;
+    font-size: 16px;
+    line-height: 1.6;
+    max-width: 720px;
+    text-align: center;
+}
+
+.downloads-mail {
+    color: #c8262c;
+    text-decoration: none;
+}
+
+.downloads-mail:hover {
+    text-decoration: underline;
+}
+
+.downloads-heading {
+    font-family: playfair display, sans-serif;
+    color: #1b1d22;
+    font-size: 32px;
+    font-weight: bold;
+    margin-top: 25px;
+}
+
+.downloads-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 15px;
+}
+
+.downloads-card {
+    background-color: #ffffff;
+    border-radius: 15px;
+    padding: 25px 30px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    text-align: center;
+    box-shadow: 0 4px 16px rgba(27, 29, 34, 0.08);
+}
+
+.downloads-card-name {
+    font-family: Inter, sans-serif;
+    color: #1b1d22;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.downloads-list {
+    list-style: none;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.downloads-link,
+.downloads-link-empty {
+    font-family: Inter, sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border-radius: 8px;
+}
+
+.downloads-link {
+    background-color: #c8262c;
+    color: #ffffff;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.downloads-link:hover {
+    background-color: #a71f24;
+    transform: translateY(-2px);
+}
+
+.downloads-link:active {
+    transform: translateY(0);
+}
+
+.downloads-link-empty {
+    background-color: #f1efea;
+    color: #9aa0a6;
+    cursor: not-allowed;
+}

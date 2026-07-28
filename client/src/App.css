@@ -1,6 +1,7 @@
 .navbar {
     background-color: #1b1d22;
     height: 100px;
+    flex-shrink: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -43,4 +44,23 @@
 
 .navbar-link:hover {
     color: #c8262c;
+}
+
+.navbar-link.active {
+    color: #f2f1ec;
+    border-bottom: 2px solid #c9a227;
+}
+
+.footer {
+    background-color: #1b1d22;
+    padding: 25px 30px;
+    display: flex;
+    justify-content: center;
+    margin-top: auto;
+}
+
+.footer-text {
+    font-family: Inter, sans-serif;
+    color: #9aa0a6;
+    font-size: 14px;
 }
