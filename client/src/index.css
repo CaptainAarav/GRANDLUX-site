@@ -8,3 +8,9 @@
     --color-redAccent: #e8432a;
     --color-navbar-bg: #2b2b2b;
 }
+
+#root {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}

@@ -1,4 +1,4 @@
-import { Routes, Route, Link } from 'react-router-dom'
+import { Routes, Route, NavLink } from 'react-router-dom'
 import Home from './pages/Home'
 import OurTeam from './pages/OurTeam'
 import Downloads from './pages/Downloads'
@@ -13,9 +13,9 @@ function App() {
                     <h1 className="navbar-title">GrandLux</h1>
                 </div>
                 <div className="navbar-links">
-                    <Link id="navbar-home-link" className="navbar-link" to="/">HOME</Link>
-                    <Link className="navbar-link" to="/team">OUR TEAM</Link>
-                    <Link className="navbar-link" to="/downloads">DOWNLOADS</Link>
+                    <NavLink className="navbar-link" to="/">HOME</NavLink>
+                    <NavLink className="navbar-link" to="/team">OUR TEAM</NavLink>
+                    <NavLink className="navbar-link" to="/downloads">DOWNLOADS</NavLink>
                 </div>
             </nav>
 
@@ -24,6 +24,10 @@ function App() {
                 <Route path="/team" element={<OurTeam />} />
                 <Route path="/downloads" element={<Downloads />} />
             </Routes>
+
+            <footer className="footer">
+                <p className="footer-text">© 2026 GrandLux</p>
+            </footer>
         </>
     )
 }
