@@ -1,9 +1,5 @@
-#navbar-home-link {
-    color: #f2f1ec;
-    border-bottom: 2px solid #c9a227;
-}
-
 .hero-section {
+    flex: 1;
     padding: 60px 0;
     background-color: #F7F3EC;
     display: flex;
