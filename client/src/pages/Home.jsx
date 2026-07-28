@@ -29,18 +29,18 @@ function Home() {
             </section>
             <section className="contact-section">
                 <div className="contact-container">
-                    <i className="fa-solid fa-circle-envelope"></i>
-                    <p className="email-title">Email</p>
+                    <i className="fa-solid fa-envelope"></i>
+                    <p className="contact-title">Email</p>
                     <a className="email-link" href="mailto:info@grandlux.lu">info@grandlux.lu</a>
                 </div>
                 <div className="contact-container">
                     <i className="fa-jelly-fill fa-regular fa-thumbs-up"></i>
-                    <p className="socials-title">Socials</p>
+                    <p className="contact-title">Socials</p>
                     <div className="social-links">
-                        <i className="fa-brands fa-youtube"></i>
-                        <i className="fa-brands fa-discord"></i>
-                        <i className="fa-brands fa-tiktok"></i>
-                        <i className="fa-brands fa-instagram"></i>
+                        <a href="https://www.youtube.com/@jw8974.1?si=fkTOjJielpoq7hCM"><i className="fa-brands fa-youtube"></i></a>
+                        <a href="https://discord.com/invite/WRZGezPtqd"><i className="fa-brands fa-discord"></i></a>
+                        <a href="https://tiktok.com/@grandlux.lu"><i className="fa-brands fa-tiktok"></i></a>
+                        <a href="https://www.instagram.com/grandlux.lu?igsh=MWNueDEzdXFtNWE1cA%3D%3D"><i className="fa-brands fa-instagram"></i></a>
                     </div>
                 </div>
             </section>

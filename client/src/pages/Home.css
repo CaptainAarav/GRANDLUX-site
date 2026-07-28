@@ -98,3 +98,45 @@
     align-items: center;
     gap: 20px;
 }
+
+.fa-envelope {
+    color: #c8262c;
+    font-size: 30px;
+}
+
+.contact-title {
+    font-family: Inter, sans-serif;
+    color: #6A6A6A;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.email-link {
+    font-family: Inter, sans-serif;
+    color: #c8262c;
+    cursor: pointer;
+}
+
+.fa-thumbs-up {
+    color: #c8262c;
+    font-size: 30px;
+}
+
+.social-links {
+    font-size: 20px;
+    display: flex;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.fa-youtube {
+    color: #FE0134;
+}
+
+.fa-discord {
+    color: #5965F2;
+}
+
+.fa-instagram {
+    color: #F70F74;
+}
