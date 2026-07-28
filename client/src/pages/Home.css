@@ -23,7 +23,7 @@
 .hero-title {
     font-family: playfair display, sans-serif;
     color: #c8262c;
-    font-size: 70px;
+    font-size: 60px;
     font-weight: bold;
 }
 
@@ -32,4 +32,41 @@
     color: #55677a;
     font-size: 20px;
     font-weight: 400;
+}
+
+.beginnings-section {
+    padding: 50px 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.beginnings-text-container {
+    width: 50vh;
+}
+
+.beginnings-text-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.FLX-logo {
+    height: 300px;
+}
+
+.beginnigns-text-title {
+    color: #c9a227;
+    font-size: 30px;
+    font-weight: 600;
+    font-family: Inter, sans-serif;
+}
+
+.beginnings-text {
+    color: black;
+    font-size: 19px;
+    font-weight: 400;
+    font-family: Inter, sans-serif;
+    line-height: 1.8;
 }
