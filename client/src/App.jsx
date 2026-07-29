@@ -1,4 +1,4 @@
-import { Routes, Route, NavLink } from 'react-router-dom'
+import { Routes, Route, NavLink, Link } from 'react-router-dom'
 import Home from './pages/Home'
 import OurTeam from './pages/OurTeam'
 import Downloads from './pages/Downloads'
@@ -8,10 +8,10 @@ function App() {
     return (
         <>
             <nav className="navbar">
-                <div className="navbar-logo-title">
+                <Link to="/" className="navbar-logo-title">
                     <img src="/grandlux-logo.png" alt="logo" className="navbar-logo" />
                     <h1 className="navbar-title">GrandLux</h1>
-                </div>
+                </Link>
                 <div className="navbar-links">
                     <NavLink className="navbar-link" to="/">HOME</NavLink>
                     <NavLink className="navbar-link" to="/team">OUR TEAM</NavLink>
