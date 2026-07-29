@@ -126,17 +126,24 @@
     font-size: 20px;
     display: flex;
     gap: 10px;
-    cursor: pointer;
 }
 
 .fa-youtube {
     color: #FE0134;
+    cursor: pointer;
 }
 
 .fa-discord {
     color: #5965F2;
+    cursor: pointer;
 }
 
 .fa-instagram {
     color: #F70F74;
+    cursor: pointer;
+}
+
+.fa-tiktok {
+    color: #000000;
+    cursor: pointer;
 }
