@@ -74,11 +74,11 @@ function GetStarted() {
 				<form onSubmit={handleSignupSubmit} className="auth-form">
 					<div className="input-container">
 						<label htmlFor="first-name-input">First Name</label>
-						<input id="first-name-input" className="input-box" type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} placeholder="Aarav" />
+						<input id="first-name-input" className="input-box" type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} placeholder="John" />
 					</div>
 					<div className="input-container">
 						<label htmlFor="last-name-input">Last Name</label>
-						<input id="last-name-input" className="input-box" type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} placeholder="Sahni" />
+						<input id="last-name-input" className="input-box" type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} placeholder="Doe" />
 					</div>
 					<div className="input-container">
 						<label htmlFor="email-input">Email Address</label>
