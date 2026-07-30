@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import { useState, useEffect, useCallback } from "react";
+import { useScrollReveal } from '../hooks/useScrollReveal'
 import './Login.css'
 import {
   signInWithEmailAndPassword,
@@ -13,6 +14,7 @@ import { useAuth } from '../useAuth'
 
 function Login() {
 	const { user, loading } = useAuth()
+	const modalRef = useScrollReveal({ threshold: 0.05 })
 	const [email, setEmail] = useState("")
 	const [password, setPassword] = useState("")
 	const [rememberMe, setRememberMe] = useState(false)
@@ -68,7 +70,7 @@ function Login() {
 
 	return (
 		<div className="background">
-			<div className="modal">
+			<div ref={modalRef} className="modal reveal reveal-fade-up">
 				<div className="modal-form">
 					<div className="title-container">
 						<img className="logo" src="/grandlux-logo.png" />

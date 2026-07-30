@@ -1,7 +1,12 @@
 import { NavLink } from 'react-router-dom'
+import { useScrollReveal } from '../hooks/useScrollReveal'
 import './Home.css'
 
 function Home() {
+    const beginningsRef = useScrollReveal()
+    const partnershipRef = useScrollReveal()
+    const contactRef = useScrollReveal()
+
     return (
         <>
             <section className="hero-section">
@@ -15,7 +20,7 @@ function Home() {
                     <NavLink className="hero-btn" to="/login">Log In</NavLink>
                 </section>
             </section>
-            <section className="beginnings-section">
+            <section ref={beginningsRef} className="beginnings-section reveal reveal-fade-up">
                 <img src="/FLX-logo.png" alt="FLX logo" className="FLX-logo" />
                 <div className="section-text-container">
                     <h2 className="section-title">OUR BEGINNING</h2>
@@ -24,7 +29,7 @@ function Home() {
                     </p>
                 </div>
             </section>
-            <section className="parternship-section">
+            <section ref={partnershipRef} className="parternship-section reveal reveal-fade-up">
                 <div className="section-text-container">
                         <h2 className="section-title">PARTNERSHIPS</h2>
                         <p className="section-text">
@@ -33,7 +38,7 @@ function Home() {
                 </div>
                 <img src="/partnership-logo.png" alt="parternship-logo" className="partnership-logo" />
             </section>
-            <section className="contact-section">
+            <section ref={contactRef} className="contact-section reveal reveal-fade-up">
                 <div className="contact-container">
                     <i className="fa-solid fa-envelope"></i>
                     <p className="contact-title">Email</p>

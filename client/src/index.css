@@ -4,6 +4,10 @@
     padding: 0;
 }
 
+html, body {
+    background-color: #1b1d22;
+}
+
 :root {
     --color-redAccent: #e8432a;
     --color-navbar-bg: #2b2b2b;
@@ -14,4 +18,21 @@
     display: flex;
     flex-direction: column;
     background-color: #1b1d22;
+}
+
+.reveal {
+    opacity: 0;
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    transition-delay: 0ms;
+}
+
+.reveal-fade-up { transform: translateY(40px); }
+.reveal-fade-down { transform: translateY(-40px); }
+.reveal-fade-left { transform: translateX(-40px); }
+.reveal-fade-right { transform: translateX(40px); }
+.reveal-scale { transform: scale(0.9); }
+
+.reveal.visible {
+    opacity: 1;
+    transform: none;
 }

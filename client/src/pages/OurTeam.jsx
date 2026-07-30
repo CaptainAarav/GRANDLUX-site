@@ -1,3 +1,4 @@
+import { useScrollReveal } from '../hooks/useScrollReveal'
 import './OurTeam.css'
 
 const team = [
@@ -8,21 +9,31 @@ const team = [
 ]
 
 function OurTeam() {
+    const titleRef = useScrollReveal()
+    const subtitleRef = useScrollReveal()
+
     return (
         <section className="team-section">
-            <h1 className="team-title">Meet our team</h1>
-            <h2 className="team-subtitle">Our Team that run this beautiful VA</h2>
+            <h1 ref={titleRef} className="team-title reveal reveal-fade-up">Meet our team</h1>
+            <h2 ref={subtitleRef} className="team-subtitle reveal reveal-fade-up">Our Team that run this beautiful VA</h2>
 
             <div className="team-grid">
                 {team.map((member) => (
-                    <article className="team-card" key={member.name}>
-                        <img src={member.image} alt={member.name} className="team-card-image" />
-                        <h3 className="team-card-name">{member.name}</h3>
-                        <p className="team-card-role">{member.role}</p>
-                    </article>
+                    <TeamCard key={member.name} member={member} />
                 ))}
             </div>
         </section>
+    )
+}
+
+function TeamCard({ member }) {
+    const ref = useScrollReveal()
+    return (
+        <article ref={ref} className="team-card reveal reveal-fade-up">
+            <img src={member.image} alt={member.name} className="team-card-image" />
+            <h3 className="team-card-name">{member.name}</h3>
+            <p className="team-card-role">{member.role}</p>
+        </article>
     )
 }
 
