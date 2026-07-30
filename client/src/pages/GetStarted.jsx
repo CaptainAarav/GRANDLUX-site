@@ -15,6 +15,8 @@ function GetStarted() {
 	const [email, setEmail] = useState("")
 	const [password, setPassword] = useState("")
 	const [confirmPassword, setConfirmPassword] = useState("")
+	const [showPassword, setShowPassword] = useState(false)
+	const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 	const [error, setError] = useState("")
 	const redirectPort = new URLSearchParams(window.location.search).get('redirect_port')
 
@@ -82,11 +84,17 @@ function GetStarted() {
 					</div>
 					<div className="input-container">
 						<label htmlFor="password-input">Password</label>
-						<input value={password} onChange={e => setPassword(e.target.value)} id="password-input" className="input-box" type="password" placeholder="Create a password" />
+						<div className="password-input-wrapper">
+							<input value={password} onChange={e => setPassword(e.target.value)} id="password-input" className="input-box" type={showPassword ? "text" : "password"} placeholder="Create a password" />
+							<i className={`fa-solid ${showPassword ? "fa-eye-slash" : "fa-eye"} password-toggle-icon`} onClick={() => setShowPassword(!showPassword)}></i>
+						</div>
 					</div>
 					<div className="input-container">
 						<label htmlFor="confirm-password-input">Confirm Password</label>
-						<input value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} id="confirm-password-input" className="input-box" type="password" placeholder="Re-enter your password" />
+						<div className="password-input-wrapper">
+							<input value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} id="confirm-password-input" className="input-box" type={showConfirmPassword ? "text" : "password"} placeholder="Re-enter your password" />
+							<i className={`fa-solid ${showConfirmPassword ? "fa-eye-slash" : "fa-eye"} password-toggle-icon`} onClick={() => setShowConfirmPassword(!showConfirmPassword)}></i>
+						</div>
 					</div>
 					<div className="alignment-container">
 						<button type="submit" className="login-btn">Sign Up</button>

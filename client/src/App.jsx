@@ -1,10 +1,10 @@
 import { Routes, Route, NavLink, Link } from 'react-router-dom'
 import Home from './pages/Home'
 import OurTeam from './pages/OurTeam'
-import Downloads from './pages/Downloads'
+import ActiveFlights from './pages/ActiveFlights'
 import GetStarted from './pages/GetStarted'
 import Login from './pages/Login'
-import MyAccount from './pages/MyAccount'
+import Dashboard from './pages/Dashboard'
 import { useAuth } from './useAuth'
 import ProtectedRoute from './ProtectedRoute'
 import './App.css'
@@ -24,12 +24,12 @@ function App() {
                 <div className="navbar-links">
                     <NavLink className="navbar-link" to="/">HOME</NavLink>
                     <NavLink className="navbar-link" to="/team">OUR TEAM</NavLink>
-                    <NavLink className="navbar-link" to="/downloads">DOWNLOADS</NavLink>
+                    <NavLink className="navbar-link" to="/flights">ACTIVE FLIGHTS</NavLink>
                     {!loading && (
                         user
                             ? (
                                 <>
-                                    <NavLink className="navbar-link" to="/myaccount">MY ACCOUNT</NavLink>
+                                    <NavLink className="navbar-link" to="/dashboard">DASHBOARD</NavLink>
                                     <button className="getstarted-btn" onClick={() => signOut(auth)}>Log Out</button>
                                 </>
                             )
@@ -41,10 +41,10 @@ function App() {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/team" element={<OurTeam />} />
-                <Route path="/downloads" element={<Downloads />} />
+                <Route path="/flights" element={<ActiveFlights />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/getstarted" element={<GetStarted />} />
-                <Route path="/myaccount" element={<ProtectedRoute><MyAccount /></ProtectedRoute>} />
+                <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
             </Routes>
 
             <footer className="footer">
