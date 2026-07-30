@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from 'react-router-dom'
 import { useState, useEffect } from "react";
-import '../Login.css'
+import './Login.css'
 import {
   createUserWithEmailAndPassword,
   signInWithPopup,
@@ -71,7 +71,7 @@ function GetStarted() {
 				<h2 className="subtitle">Get Started</h2>
 				{error && <p className="login-error">{error}</p>}
 
-				<form onSubmit={handleSignupSubmit}>
+				<form onSubmit={handleSignupSubmit} className="auth-form">
 					<div className="input-container">
 						<label htmlFor="first-name-input">First Name</label>
 						<input id="first-name-input" className="input-box" type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} placeholder="Aarav" />

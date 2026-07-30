@@ -64,7 +64,7 @@ function Login() {
 				<h2 className="subtitle">Welcome Back</h2>
 				{error && <p className="login-error">{error}</p>}
 
-				<form onSubmit={handleEmailSubmit}>
+				<form onSubmit={handleEmailSubmit} className="auth-form">
 					<div className="input-container">
 						<label htmlFor="email-input">Email Address</label>
 						<input id="email-input" className="input-box" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="your.email@example.com" />
@@ -96,7 +96,7 @@ function Login() {
 					<p className="btn-text">Sign in with Google</p>
 				</button>
 
-				<p>Is it your first time? <NavLink className="sign-up-link" to="/getstarted">Get Started</NavLink></p>
+				<p>Is it your first time? <NavLink className="sign-up-link" to="/getstarted">Sign up</NavLink></p>
 			</div>
 		</div>
 	)
