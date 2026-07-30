@@ -1,3 +1,3 @@
 # GRANDLUX Site
 
-## Bus5top is the BEST!!!!!!!!1
+## Bus5top is the BEST!!!!!!!!
