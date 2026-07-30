@@ -1,15 +1,13 @@
-require('dotenv').config();
+require('dotenv').config()
+const express = require('express')
+const cors = require('cors')
+const admin = require('firebase-admin')
+const serviceAccount = require('../serviceAccountKey.json')
 
-const express = require('express');
-const cors = require('cors');
+admin.initializeApp({
+	credential: admin.credential.cert(serviceAccount)
+})
 
-const app = express();
-app.use(cors());
-app.use(express.json());
-
-app.get('/api/health', (req, res) => {
-    res.json({ status: 'ok' });
-});
-
-const PORT = process.env.PORT || 4000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+const app = express()
+app.use(cors())
+app.use(express.json())
