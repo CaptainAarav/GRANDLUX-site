@@ -36,7 +36,7 @@ function AuthCallback() {
 				if (redirectPort) {
 					window.location.href = `http://127.0.0.1:${redirectPort}/?token=${token}`
 				} else {
-					navigate('/')
+					navigate('/dashboard')
 				}
 			}, 5000)
 			return () => clearTimeout(t)

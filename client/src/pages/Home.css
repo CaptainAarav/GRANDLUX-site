@@ -87,6 +87,8 @@
     border-radius: 8px;
     padding: 13px 50px;
     transition: color 0.2s ease-in-out;
+    border: none;
+    cursor: pointer;
 }
 
 .hero-btn:hover {

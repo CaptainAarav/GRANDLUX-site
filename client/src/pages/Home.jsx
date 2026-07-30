@@ -1,8 +1,12 @@
 import { NavLink } from 'react-router-dom'
 import { useScrollReveal } from '../hooks/useScrollReveal'
+import { useAuth } from '../useAuth'
+import { signOut } from 'firebase/auth'
+import { auth } from '../firebase'
 import './Home.css'
 
 function Home() {
+    const { user, loading } = useAuth()
     const beginningsRef = useScrollReveal()
     const partnershipRef = useScrollReveal()
     const contactRef = useScrollReveal()
@@ -16,8 +20,13 @@ function Home() {
                 <h1 className="hero-title">GrandLux</h1>
                 <h2 className="hero-subtitle">The Luxembourgish way of flying with perfection</h2>
                 <section className="hero-btns-container">
-                    <NavLink className="hero-btn" to="/getstarted">Join Now</NavLink>
-                    <NavLink className="hero-btn" to="/login">Log In</NavLink>
+                    {!loading && user
+                        ? <button className="hero-btn" onClick={() => signOut(auth)}>Log Out</button>
+                        : <>
+                            <NavLink className="hero-btn" to="/getstarted">Join Now</NavLink>
+                            <NavLink className="hero-btn" to="/login">Log In</NavLink>
+                        </>
+                    }
                 </section>
             </section>
             <section ref={beginningsRef} className="beginnings-section reveal reveal-fade-up">

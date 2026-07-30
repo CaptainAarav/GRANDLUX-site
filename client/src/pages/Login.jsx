@@ -27,7 +27,7 @@ function Login() {
 		if (redirectPort) {
 			window.location.href = `http://127.0.0.1:${redirectPort}/?token=${token}`
 		} else {
-			window.location.href = '/'
+			window.location.href = '/dashboard'
 		}
 	}, [redirectPort])
 

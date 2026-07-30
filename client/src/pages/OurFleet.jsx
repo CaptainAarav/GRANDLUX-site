@@ -31,7 +31,7 @@ function OurFleet() {
                 <div ref={b738TextRef} className="fleet-text reveal reveal-fade-up">
                     <h2 className="fleet-aircraft-title">B737-800</h2>
                     <p className="fleet-description">
-                        The 737-800 is the workhorse we trust to get the job done. It is reliable, proven, and tougher than a Luxembourg winter. Some say it has been around since the dawn of aviation, but we say if it is not broken, why fix it? Besides, it pairs perfectly with a good coffee and a strong crosswind landing. Just dont land it like the people at VRYR.
+                        The 737-800 is the workhorse we trust to get the job done. It is reliable, proven, and tougher than a Luxembourg winter. Some say it has been around since the dawn of aviation, but we say if it ain't broke, don't fix it? Besides, it pairs perfectly with a good coffee and a strong crosswind landing. Just dont land it like our freinds at VRYR.
                     </p>
                 </div>
             </div>
