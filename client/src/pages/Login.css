@@ -200,6 +200,40 @@
 	gap: 10px;
 }
 
+.oauth-buttons {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	width: 100%;
+}
+
+.oauth-btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 5px;
+	background-color: transparent;
+	border-radius: 8px;
+	transition: color 0.2s ease-in-out;
+	padding: 8px 50px;
+	cursor: pointer;
+	border: 1px solid #55677a;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.oauth-btn:hover {
+	background-color: #f0f0f0;
+}
+
+.discord-btn {
+	color: #5865F2;
+}
+
+.vatsim-btn {
+	color: #1a6b3c;
+}
+
 .modal-liveries {
     flex: 1;
     display: flex;

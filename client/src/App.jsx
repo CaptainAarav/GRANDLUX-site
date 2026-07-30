@@ -5,6 +5,7 @@ import ActiveFlights from './pages/ActiveFlights'
 import GetStarted from './pages/GetStarted'
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
+import AuthCallback from './pages/AuthCallback'
 import { useAuth } from './useAuth'
 import ProtectedRoute from './ProtectedRoute'
 import './App.css'
@@ -45,6 +46,7 @@ function App() {
                     <Route path="/flights" element={<ActiveFlights />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/getstarted" element={<GetStarted />} />
+                    <Route path="/auth/callback" element={<AuthCallback />} />
                     <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
                 </Routes>
             </main>

@@ -3,6 +3,7 @@ const express = require('express')
 const cors = require('cors')
 const helmet = require('helmet')
 const flightsRouter = require('./routes/flights')
+const authRouter = require('./routes/auth')
 
 const app = express()
 app.use(helmet())
@@ -10,6 +11,7 @@ app.use(cors({ origin: process.env.CORS_ORIGIN || 'http://localhost:5173' }))
 app.use(express.json())
 
 app.use('/api/flights', flightsRouter)
+app.use('/api/auth', authRouter)
 
 app.use((err, req, res, next) => {
 	console.error('Unhandled error:', err)

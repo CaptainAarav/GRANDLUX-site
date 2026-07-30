@@ -47,6 +47,15 @@ function GetStarted() {
 		}
 	}
 
+	const AUTH_SERVER = import.meta.env.VITE_API_URL || 'http://localhost:4000'
+
+	function handleOAuthRedirect(provider) {
+		const redirectPort = new URLSearchParams(window.location.search).get('redirect_port')
+		let url = `${AUTH_SERVER}/api/auth/${provider}/login`
+		if (redirectPort) url += `?redirect_port=${redirectPort}`
+		window.location.href = url
+	}
+
 	async function handleGoogleClick() {
 		setError('')
 		try {
@@ -108,10 +117,20 @@ function GetStarted() {
 						<div className="line"></div>
 					</div>
 
-					<button type="button" onClick={handleGoogleClick} className="google-btn">
-						<i className="fa-brands fa-google"></i>
-						<p className="btn-text">Sign up with Google</p>
-					</button>
+					<div className="oauth-buttons">
+						<button type="button" onClick={handleGoogleClick} className="google-btn">
+							<i className="fa-brands fa-google"></i>
+							<p className="btn-text">Sign up with Google</p>
+						</button>
+						<button type="button" onClick={() => handleOAuthRedirect('discord')} className="oauth-btn discord-btn">
+							<i className="fa-brands fa-discord"></i>
+							<p className="btn-text">Sign up with Discord</p>
+						</button>
+						<button type="button" onClick={() => handleOAuthRedirect('vatsim')} className="oauth-btn vatsim-btn">
+							<i className="fa-solid fa-plane"></i>
+							<p className="btn-text">Sign up with VATSIM</p>
+						</button>
+					</div>
 
 					<p>Already have an account? <NavLink className="sign-up-link" to="/login">Log in</NavLink></p>
 				</div>

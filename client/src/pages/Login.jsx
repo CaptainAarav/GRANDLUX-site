@@ -38,7 +38,6 @@ function Login() {
 	async function handleEmailSubmit(e) {
 		e.preventDefault()
 		setError('')
-		console.log('About to sign in with:', JSON.stringify(email))
 		try {
 			await setPersistence(auth, rememberMe ? browserLocalPersistence : browserSessionPersistence)
 			const userCredential = await signInWithEmailAndPassword(auth, email, password)
@@ -46,6 +45,15 @@ function Login() {
 		} catch (err) {
 			setError(err.message)
 		}
+	}
+
+	const AUTH_SERVER = import.meta.env.VITE_API_URL || 'http://localhost:4000'
+
+	function handleOAuthRedirect(provider) {
+		const redirectPort = new URLSearchParams(window.location.search).get('redirect_port')
+		let url = `${AUTH_SERVER}/api/auth/${provider}/login`
+		if (redirectPort) url += `?redirect_port=${redirectPort}`
+		window.location.href = url
 	}
 
 	async function handleGoogleClick() {
@@ -99,10 +107,20 @@ function Login() {
 						<div className="line"></div>
 					</div>
 
-					<button type="button" onClick={handleGoogleClick} className="google-btn">
-						<i className="fa-brands fa-google"></i>
-						<p className="btn-text">Sign in with Google</p>
-					</button>
+					<div className="oauth-buttons">
+						<button type="button" onClick={handleGoogleClick} className="google-btn">
+							<i className="fa-brands fa-google"></i>
+							<p className="btn-text">Sign in with Google</p>
+						</button>
+						<button type="button" onClick={() => handleOAuthRedirect('discord')} className="oauth-btn discord-btn">
+							<i className="fa-brands fa-discord"></i>
+							<p className="btn-text">Sign in with Discord</p>
+						</button>
+						<button type="button" onClick={() => handleOAuthRedirect('vatsim')} className="oauth-btn vatsim-btn">
+							<i className="fa-solid fa-plane"></i>
+							<p className="btn-text">Sign in with VATSIM</p>
+						</button>
+					</div>
 
 					<p>Is it your first time? <NavLink className="sign-up-link" to="/getstarted">Sign up</NavLink></p>
 				</div>

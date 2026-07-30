@@ -12,7 +12,6 @@ router.post('/ping', verifyToken, (req, res) => {
 		return res.status(400).json({ error: 'Invalid lng' })
 	}
 	console.log('Ping from pilot:', req.pilotId)
-	console.log('Data:', req.body)
 	res.json({ status: 'ok' })
 })
 

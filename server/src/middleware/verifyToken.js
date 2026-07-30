@@ -2,7 +2,6 @@ const { auth } = require('../firebase')
 
 async function verifyToken(req, res, next) {
 	const authHeader = req.headers.authorization
-	console.log('Received auth header:', authHeader)
 
 	if (!authHeader || !authHeader.startsWith('Bearer ')) {
 		return res.status(401).json({ error: 'No token provided' })
