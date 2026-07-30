@@ -1,0 +1,41 @@
+.background {
+    background-color: #F7F3EC;
+    min-height: calc(100vh - 160px);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal {
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 360px;
+    padding: 40px;
+    border-radius: 12px;
+	gap: 20px;
+}
+
+.title-container {
+	display: flex;
+	align-items: center;
+	justify-items: center;
+	gap: 10px;
+}
+
+.logo {
+	height: 70px;
+}
+
+.title {
+	font-family: playfair display, sans-serif;
+    color: #c8262c;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.input-box {
+	background-color: #2B2B29;
+}

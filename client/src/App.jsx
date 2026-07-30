@@ -3,6 +3,7 @@ import Home from './pages/Home'
 import OurTeam from './pages/OurTeam'
 import Downloads from './pages/Downloads'
 import GetStarted from './pages/GetStarted'
+import Login from './pages/Login'
 import './App.css'
 
 function App() {
@@ -25,7 +26,8 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/team" element={<OurTeam />} />
                 <Route path="/downloads" element={<Downloads />} />
-                <Route path='/getstarted' element={<GetStarted />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/getstarted" element={<GetStarted />} />
             </Routes>
 
             <footer className="footer">

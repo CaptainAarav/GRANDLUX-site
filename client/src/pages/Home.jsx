@@ -1,8 +1,6 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom'
 import './Home.css'
-import { Routes, Route, NavLink} from 'react-router-dom'
-import Login from './Login'
-import GetStarted from './GetStarted'
 
 function Home() {
     return (
@@ -51,11 +49,6 @@ function Home() {
                     </div>
                 </div>
             </section>
-
-            <Routes>
-                <Route path='/login' element={<Login />} />
-                <Route path='/getstarted' element={<GetStarted />} />
-            </Routes>
         </>
     )
 }
