@@ -4,7 +4,7 @@ import './OurTeam.css'
 const team = [
     { name: 'JW89', role: 'Owner & CEO', image: '/team-jw89.png' },
     { name: 'Rotate & Fly', role: 'Owner', image: '/team-rotateandfly.jpg' },
-    { name: 'Bus5top', role: 'Owner/Dev', image: '/team-bus5top.png' },
+    { name: 'Bus5top', role: 'Owner', image: '/team-bus5top.png' },
     { name: 'Captain Aarav', role: 'Developer', image: '/team-captain_aarav.png' }
 ]
 

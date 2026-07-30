@@ -76,7 +76,7 @@ function GetStarted() {
 						<img className="logo" src="/grandlux-logo.png" />
 						<h1 className="title">GrandLux</h1>
 					</div>
-					<h2 className="subtitle">Get Started</h2>
+					<h2 className="subtitle">Join Now</h2>
 					{error && <p className="login-error">{error}</p>}
 
 					<form onSubmit={handleSignupSubmit} className="auth-form">

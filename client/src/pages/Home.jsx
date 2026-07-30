@@ -16,7 +16,7 @@ function Home() {
                 <h1 className="hero-title">GrandLux</h1>
                 <h2 className="hero-subtitle">The Luxembourgish way of flying with perfection</h2>
                 <section className="hero-btns-container">
-                    <NavLink className="hero-btn" to="/getstarted">Get Started</NavLink>
+                    <NavLink className="hero-btn" to="/getstarted">Join Now</NavLink>
                     <NavLink className="hero-btn" to="/login">Log In</NavLink>
                 </section>
             </section>

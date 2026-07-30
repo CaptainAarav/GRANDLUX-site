@@ -1,6 +1,7 @@
 import { Routes, Route, NavLink, Link } from 'react-router-dom'
 import Home from './pages/Home'
 import OurTeam from './pages/OurTeam'
+import OurFleet from './pages/OurFleet'
 import ActiveFlights from './pages/ActiveFlights'
 import GetStarted from './pages/GetStarted'
 import Login from './pages/Login'
@@ -25,6 +26,7 @@ function App() {
                 <div className="navbar-links">
                     <NavLink className="navbar-link" to="/">HOME</NavLink>
                     <NavLink className="navbar-link" to="/team">OUR TEAM</NavLink>
+                    <NavLink className="navbar-link" to="/fleet">OUR FLEET</NavLink>
                     <NavLink className="navbar-link" to="/flights">ACTIVE FLIGHTS</NavLink>
                     {!loading && (
                         user
@@ -34,7 +36,7 @@ function App() {
                                     <button className="getstarted-btn" onClick={() => signOut(auth)}>Log Out</button>
                                 </>
                             )
-                            : <NavLink className="getstarted-btn" to="/getstarted">Get Started</NavLink>
+                            : <NavLink className="getstarted-btn" to="/getstarted">Join Now</NavLink>
                     )}
                 </div>
             </nav>
@@ -43,6 +45,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/team" element={<OurTeam />} />
+                    <Route path="/fleet" element={<OurFleet />} />
                     <Route path="/flights" element={<ActiveFlights />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/getstarted" element={<GetStarted />} />
