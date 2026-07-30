@@ -38,14 +38,16 @@ function App() {
                 </div>
             </nav>
 
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/team" element={<OurTeam />} />
-                <Route path="/flights" element={<ActiveFlights />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/getstarted" element={<GetStarted />} />
-                <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-            </Routes>
+            <main className="page-content">
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/team" element={<OurTeam />} />
+                    <Route path="/flights" element={<ActiveFlights />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/getstarted" element={<GetStarted />} />
+                    <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+                </Routes>
+            </main>
 
             <footer className="footer">
                 <p className="footer-text">© 2026 GrandLux</p>

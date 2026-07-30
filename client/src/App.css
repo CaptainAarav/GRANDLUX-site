@@ -70,6 +70,15 @@
     background-color: #FE0134;
 }
 
+.page-content {
+    border-radius: 20px 20px 0 0;
+    overflow: hidden;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+}
+
 .footer {
     background-color: #1b1d22;
     padding: 25px 30px;
