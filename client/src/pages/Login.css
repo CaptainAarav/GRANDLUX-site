@@ -190,3 +190,9 @@
 	color: #9aa0a6;
 	cursor: pointer;
 }
+
+.name-inputs-container {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
