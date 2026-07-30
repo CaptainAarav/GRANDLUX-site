@@ -10,13 +10,20 @@
 .modal {
     background-color: #ffffff;
     display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    border-radius: 12px;
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+.modal-form {
+    display: flex;
     flex-direction: column;
     align-items: center;
     width: 360px;
     padding: 30px;
-    border-radius: 12px;
 	gap: 15px;
-	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
 .auth-form {
@@ -191,4 +198,38 @@
 	display: flex;
 	align-items: center;
 	gap: 10px;
+}
+
+.modal-liveries {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 280px;
+}
+
+.liveries-container {
+    position: relative;
+    width: 320px;
+    height: 320px;
+}
+
+.livery-plane {
+    position: absolute;
+    object-fit: contain;
+    transform: rotate(30deg);
+}
+
+.livery-a320 {
+    height: 220px;
+    top: -50px;
+    right: -200px;
+    z-index: 2;
+}
+
+.livery-737 {
+    height: 280px;
+    bottom: -60px;
+    left: -40px;
+    z-index: 1;
 }
