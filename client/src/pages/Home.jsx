@@ -1,5 +1,8 @@
 import React from 'react'
 import './Home.css'
+import { Routes, Route, NavLink} from 'react-router-dom'
+import Login from './Login'
+import GetStarted from './GetStarted'
 
 function Home() {
     return (
@@ -8,6 +11,10 @@ function Home() {
                 <img src="/grandlux-logo.png" alt="logo" className="hero-logo" />
                 <h1 className="hero-title">GrandLux</h1>
                 <h2 className="hero-subtitle"><em>The Luxembourgish way of flying with perfection</em></h2>
+                <section className="hero-btns-container">
+                    <NavLink className="hero-btn" to="/getstarted">Get Started</NavLink>
+                    <NavLink className="hero-btn" to="/login">Log In</NavLink>
+                </section>
             </section>
             <section className="beginnings-section">
                 <img src="/FLX-logo.png" alt="FLX logo" className="FLX-logo" />
@@ -44,6 +51,11 @@ function Home() {
                     </div>
                 </div>
             </section>
+
+            <Routes>
+                <Route path='/login' element={<Login />} />
+                <Route path='/getstarted' element={<GetStarted />} />
+            </Routes>
         </>
     )
 }

@@ -52,6 +52,22 @@
     border-bottom: 2px solid #c9a227;
 }
 
+.getstarted-btn {
+    text-decoration: none;
+    background-color: #c8262c;
+    font-family: Inter, sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    color: #ffffff;
+    border-radius: 8px;
+    padding: 10px 20px;
+    transition: color 0.3s ease-in-out;
+}
+
+.getstarted-btn:hover {
+    background-color: #FE0134;
+}
+
 .footer {
     background-color: #1b1d22;
     padding: 25px 30px;

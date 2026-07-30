@@ -30,6 +30,29 @@
     font-weight: 400;
 }
 
+.hero-btns-container {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    gap: 20px;
+}
+
+.hero-btn {
+    text-decoration: none;
+    background-color: #c8262c;
+    font-family: Inter, sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    color: #ffffff;
+    border-radius: 8px;
+    padding: 13px 50px;
+    transition: color 0.2s ease-in-out;
+}
+
+.hero-btn:hover {
+    background-color: #FE0134;
+}
+
 .beginnings-section {
     padding: 130px 50px;
     display: flex;
