@@ -2,10 +2,10 @@ import { useScrollReveal } from '../hooks/useScrollReveal'
 import './OurTeam.css'
 
 const team = [
-    { name: 'JW89', role: 'Owner & CEO', image: '/team-jw89.png' },
-    { name: 'Rotate & Fly', role: 'Owner', image: '/team-rotateandfly.jpg' },
-    { name: 'Bus5top', role: 'Owner', image: '/team-bus5top.png' },
-    { name: 'Captain Aarav', role: 'Developer', image: '/team-captain_aarav.png' }
+    { name: 'JW89', role: 'Owner & CEO', image: '/staff/team-jw89.png' },
+    { name: 'Rotate & Fly', role: 'Owner', image: '/staff/team-rotateandfly.jpg' },
+    { name: 'Bus5top', role: 'Owner', image: '/staff/team-bus5top.png' },
+    { name: 'Captain Aarav', role: 'Developer', image: '/staff/team-captain_aarav.png' }
 ]
 
 function OurTeam() {

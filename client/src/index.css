@@ -36,3 +36,11 @@ html, body {
     opacity: 1;
     transform: none;
 }
+
+@media (max-width: 1024px) {
+    .reveal-fade-up { transform: translateY(30px); }
+    .reveal-fade-down { transform: translateY(-30px); }
+    .reveal-fade-left { transform: translateX(-30px); }
+    .reveal-fade-right { transform: translateX(30px); }
+    .reveal-scale { transform: scale(0.95); }
+}

@@ -8,7 +8,7 @@ import {
   setPersistence,
   browserLocalPersistence,
 } from 'firebase/auth'
-import { auth, googleProvider } from '../firebase'
+import { auth, googleProvider } from '../lib/firebase'
 
 function GetStarted() {
 	const modalRef = useScrollReveal({ threshold: 0.05 })
@@ -73,7 +73,7 @@ function GetStarted() {
 			<div ref={modalRef} className="modal reveal reveal-fade-up">
 				<div className="modal-form">
 					<div className="title-container">
-						<img className="logo" src="/grandlux-logo.png" />
+						<img className="logo" src="/logos/grandlux-logo.png" />
 						<h1 className="title">GrandLux</h1>
 					</div>
 					<h2 className="subtitle">Join Now</h2>
@@ -138,8 +138,8 @@ function GetStarted() {
 				</div>
 				<div className="modal-liveries">
 					<div className="liveries-container">
-						<img src="/a320-grandlux-livery.png" className="livery-plane livery-a320" />
-						<img src="/grandlux-737-livery.png" className="livery-plane livery-737" />
+						<img src="/liverys/a320-grandlux-livery.png" className="livery-plane livery-a320" />
+						<img src="/liverys/grandlux-737-livery.png" className="livery-plane livery-737" />
 					</div>
 				</div>
 			</div>

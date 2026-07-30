@@ -76,3 +76,23 @@
 .team-card:nth-child(2) { transition-delay: 100ms; }
 .team-card:nth-child(3) { transition-delay: 200ms; }
 .team-card:nth-child(4) { transition-delay: 300ms; }
+
+@media (max-width: 1024px) {
+    .team-title { font-size: clamp(36px, 6vw, 55px); }
+    .team-subtitle { font-size: clamp(16px, 2.5vw, 20px); padding: 0 20px; }
+    .team-card { width: min(300px, 80vw); }
+}
+
+@media (max-width: 768px) {
+    .team-section { padding: 40px 20px; }
+    .team-title { font-size: clamp(28px, 7vw, 40px); }
+    .team-grid { gap: 25px; }
+    .team-card { width: min(280px, 90vw); }
+    .team-card-name { font-size: 22px; }
+}
+
+@media (max-width: 480px) {
+    .team-section { padding: 30px 15px; }
+    .team-title { font-size: 28px; }
+    .team-card { width: 100%; max-width: 320px; padding: 15px; }
+}

@@ -24,10 +24,20 @@
     animation: flyInLeft 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
+.hero-plane-737:hover {
+    animation: flyInLeft 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards,
+               float 2.5s ease-in-out 0.1s infinite;
+}
+
 .hero-plane-a320 {
     height: 240px;
     right: 20px;
     animation: flyInRight 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.hero-plane-a320:hover {
+    animation: flyInRight 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards,
+               float 2.5s ease-in-out 0.1s infinite;
 }
 
 @keyframes flyInLeft {
@@ -46,6 +56,11 @@
     to {
         transform: translateY(-50%) translateX(0) rotate(30deg);
     }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(-50%) translateX(0) rotate(30deg); }
+    50%      { transform: translateY(calc(-50% - 6px)) translateX(0) rotate(30deg); }
 }
 
 .hero-logo {
@@ -211,4 +226,56 @@
 .fa-tiktok {
     color: #000000;
     cursor: pointer;
+}
+
+@media (max-width: 1600px) {
+    .hero-plane { display: none; }
+}
+
+@media (max-width: 1024px) {
+    .hero-title { font-size: clamp(36px, 6vw, 60px); }
+    .hero-subtitle { font-size: clamp(16px, 2.5vw, 20px); padding: 0 20px; }
+    .beginnings-section { padding: 80px 30px; }
+    .parternship-section { padding: 60px 30px; gap: 30px; }
+    .section-text { width: min(600px, 85vw); font-size: clamp(16px, 2vw, 19px); }
+    .FLX-logo { height: 200px; }
+    .partnership-logo { height: 300px; }
+}
+
+@media (max-width: 768px) {
+    .hero-section { padding: 40px 15px; gap: 20px; }
+    .hero-logo { height: 120px; }
+    .hero-title { font-size: clamp(28px, 8vw, 50px); }
+    .hero-subtitle { font-size: 16px; }
+    .hero-btns-container { flex-direction: column; gap: 12px; }
+    .hero-btn { width: 200px; text-align: center; padding: 12px 30px; }
+
+    .beginnings-section {
+        flex-direction: column;
+        padding: 60px 20px;
+        gap: 30px;
+        text-align: center;
+    }
+    .FLX-logo { height: 150px; }
+
+    .parternship-section {
+        grid-template-columns: 1fr;
+        padding: 50px 20px;
+        text-align: center;
+    }
+    .parternship-section .section-text-container { order: 1; }
+    .partnership-logo { height: 200px; }
+
+
+    .section-title { font-size: clamp(22px, 5vw, 30px); }
+}
+
+@media (max-width: 480px) {
+    .hero-logo { height: 90px; }
+    .hero-title { font-size: 28px; }
+    .hero-btn { width: 180px; padding: 10px 20px; font-size: 14px; }
+    .beginnings-section { padding: 40px 15px; }
+    .FLX-logo { height: 120px; }
+    .parternship-section { padding: 40px 15px; }
+    .section-text { font-size: 15px; }
 }

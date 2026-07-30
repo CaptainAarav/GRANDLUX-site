@@ -1,10 +1,11 @@
 .background {
     background-color: #F7F3EC;
-    min-height: calc(100vh - 160px);
+    flex: 1;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 40px 20px;
 }
 
 .modal {
@@ -192,6 +193,12 @@
 	transform: translateY(-50%);
 	color: #9aa0a6;
 	cursor: pointer;
+	z-index: 1;
+	pointer-events: auto;
+}
+
+.password-input-wrapper .input-box {
+	padding-right: 36px;
 }
 
 .name-inputs-container {
@@ -266,4 +273,95 @@
     bottom: -60px;
     left: -40px;
     z-index: 1;
+}
+
+.otp-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 12px;
+	width: 100%;
+}
+
+.otp-input-row {
+	display: flex;
+	gap: 8px;
+	justify-content: center;
+}
+
+.otp-input {
+	width: 44px;
+	height: 48px;
+	text-align: center;
+	font-size: 22px;
+	font-family: Inter, sans-serif;
+	font-weight: 600;
+	background-color: #2B2B29;
+	color: #ffffff;
+	border-radius: 8px;
+	border: none;
+	box-sizing: border-box;
+}
+
+.otp-input:focus {
+	outline: 2px solid #c8262c;
+}
+
+.otp-error {
+	color: #c8262c;
+	font-family: Inter, sans-serif;
+	font-size: 13px;
+	text-align: center;
+}
+
+.otp-sent-text {
+	color: #6A6A6A;
+	font-family: Inter, sans-serif;
+	font-size: 13px;
+	text-align: center;
+}
+
+.otp-actions {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	width: 100%;
+}
+
+.otp-back-btn {
+	background: none;
+	border: none;
+	color: #c8262c;
+	font-family: Inter, sans-serif;
+	font-size: 14px;
+	cursor: pointer;
+	text-align: center;
+}
+
+@media (max-width: 1024px) {
+    .modal-form { width: min(360px, 45vw); }
+    .livery-a320 { height: 160px; right: -120px; }
+    .livery-737 { height: 200px; bottom: -40px; left: -30px; }
+    .liveries-container { width: 240px; height: 240px; }
+}
+
+@media (max-width: 768px) {
+    .background { padding: 20px 15px; }
+    .modal { flex-direction: column; width: 100%; max-width: 400px; }
+    .modal-form { width: 100%; padding: 25px 20px; }
+    .modal-liveries { display: none; }
+    .logo { height: 70px; }
+    .title { font-size: 36px; }
+    .subtitle { font-size: 20px; }
+    .line { width: 80px; }
+    .google-btn { padding: 8px 20px; }
+    .oauth-btn { padding: 8px 20px; }
+}
+
+@media (max-width: 480px) {
+    .background { padding: 15px 10px; }
+    .modal-form { padding: 20px 15px; gap: 12px; }
+    .title { font-size: 30px; }
+    .subtitle { font-size: 18px; }
+    .name-inputs-container { flex-direction: column; gap: 5px; }
 }

@@ -66,3 +66,27 @@
     font-size: 18px;
     line-height: 1.8;
 }
+
+@media (max-width: 1024px) {
+    .fleet-heading { font-size: clamp(32px, 5vw, 50px); }
+    .fleet-image { height: clamp(260px, 35vw, 380px); }
+    .fleet-aircraft-title { font-size: clamp(30px, 5vw, 42px); }
+}
+
+@media (max-width: 768px) {
+    .fleet-page { padding: 40px 20px; }
+    .fleet-heading { font-size: clamp(26px, 6vw, 36px); margin-bottom: 25px; }
+    .fleet-card { padding: 20px; }
+    .fleet-image { height: clamp(180px, 40vw, 280px); }
+    .fleet-text { padding: 20px 0 0; }
+    .fleet-aircraft-title { font-size: clamp(24px, 5vw, 32px); }
+    .fleet-description { font-size: 16px; }
+    .fleet-aircraft + .fleet-aircraft { margin-top: 40px; }
+}
+
+@media (max-width: 480px) {
+    .fleet-page { padding: 25px 12px; }
+    .fleet-card { padding: 15px; border-radius: 15px; }
+    .fleet-image { height: 160px; }
+    .fleet-description { font-size: 15px; }
+}

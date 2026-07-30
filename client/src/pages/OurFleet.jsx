@@ -14,7 +14,7 @@ function OurFleet() {
 
             <div className="fleet-aircraft">
                 <div ref={a320CardRef} className="fleet-card reveal reveal-fade-up">
-                    <img src="/a320-grandlux-livery.png" alt="A320-200" className="fleet-image" />
+                    <img src="/liverys/a320-grandlux-livery.png" alt="A320-200" className="fleet-image" />
                 </div>
                 <div ref={a320TextRef} className="fleet-text reveal reveal-fade-up">
                     <h2 className="fleet-aircraft-title">A320-200</h2>
@@ -26,7 +26,7 @@ function OurFleet() {
 
             <div className="fleet-aircraft">
                 <div ref={b738CardRef} className="fleet-card reveal reveal-fade-up">
-                    <img src="/grandlux-737-livery.png" alt="737-800" className="fleet-image" />
+                    <img src="/liverys/grandlux-737-livery.png" alt="737-800" className="fleet-image" />
                 </div>
                 <div ref={b738TextRef} className="fleet-text reveal reveal-fade-up">
                     <h2 className="fleet-aircraft-title">B737-800</h2>

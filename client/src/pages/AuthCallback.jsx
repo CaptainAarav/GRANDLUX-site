@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { signInWithCustomToken } from 'firebase/auth'
-import { auth } from '../firebase'
+import { auth } from '../lib/firebase'
 
 function AuthCallback() {
 	const [searchParams] = useSearchParams()

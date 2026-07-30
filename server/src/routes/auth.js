@@ -1,6 +1,8 @@
 const express = require('express')
 const axios = require('axios')
 const { auth } = require('../firebase')
+const { sendOTPEmail } = require('../email')
+const otpStore = require('../otpStore')
 
 const router = express.Router()
 
@@ -101,6 +103,33 @@ router.get('/vatsim/callback', async (req, res) => {
 		console.error('VATSIM OAuth error:', err.response?.data || err.message)
 		res.redirect(`${clientOrigin}/auth/callback?error=vatsim_auth_failed`)
 	}
+})
+
+router.post('/send-otp', async (req, res) => {
+  const { email } = req.body
+  if (!email) return res.status(400).json({ error: 'Email is required' })
+
+  try {
+    await auth.getUserByEmail(email)
+  } catch {
+    return res.status(200).json({ message: 'If the email exists, a code has been sent.' })
+  }
+
+  const otp = otpStore.generateOTP()
+  otpStore.set(email, otp)
+  await sendOTPEmail(email, otp)
+
+  res.json({ message: 'If the email exists, a code has been sent.' })
+})
+
+router.post('/verify-otp', (req, res) => {
+  const { email, otp } = req.body
+  if (!email || !otp) return res.status(400).json({ error: 'Email and OTP are required' })
+
+  const valid = otpStore.verify(email, otp)
+  if (!valid) return res.status(401).json({ error: 'Invalid or expired OTP' })
+
+  res.json({ verified: true })
 })
 
 module.exports = router

@@ -1,8 +1,8 @@
 import { NavLink } from 'react-router-dom'
 import { useScrollReveal } from '../hooks/useScrollReveal'
-import { useAuth } from '../useAuth'
+import { useAuth } from '../hooks/useAuth'
 import { signOut } from 'firebase/auth'
-import { auth } from '../firebase'
+import { auth } from '../lib/firebase'
 import './Home.css'
 
 function Home() {
@@ -14,9 +14,9 @@ function Home() {
     return (
         <>
             <section className="hero-section">
-                <img src="/grandlux-737-livery.png" className="hero-plane hero-plane-737" />
-                <img src="/a320-grandlux-livery.png" className="hero-plane hero-plane-a320" />
-                <img src="/grandlux-logo.png" alt="logo" className="hero-logo" />
+                <img src="/liverys/grandlux-737-livery.png" className="hero-plane hero-plane-737" />
+                <img src="/liverys/a320-grandlux-livery.png" className="hero-plane hero-plane-a320" />
+                <img src="/logos/grandlux-logo.png" alt="logo" className="hero-logo" />
                 <h1 className="hero-title">GrandLux</h1>
                 <h2 className="hero-subtitle">The Luxembourgish way of flying with perfection</h2>
                 <section className="hero-btns-container">
@@ -30,7 +30,7 @@ function Home() {
                 </section>
             </section>
             <section ref={beginningsRef} className="beginnings-section reveal reveal-fade-up">
-                <img src="/FLX-logo.png" alt="FLX logo" className="FLX-logo" />
+                <img src="/logos/FLX-logo.png" alt="FLX logo" className="FLX-logo" />
                 <div className="section-text-container">
                     <h2 className="section-title">OUR BEGINNING</h2>
                     <p className="section-text">
@@ -45,7 +45,7 @@ function Home() {
                             Currently we have an ongoing partnership with LuxPlanes, A big thank you to him to make this happen. We have a lot in common bringing the aviation community closer to poeple that don't have a lot of knowlege in the field of aviation.
                         </p>
                 </div>
-                <img src="/partnership-logo.png" alt="parternship-logo" className="partnership-logo" />
+                <img src="/logos/partnership-logo.png" alt="parternship-logo" className="partnership-logo" />
             </section>
             <section ref={contactRef} className="contact-section reveal reveal-fade-up">
                 <div className="contact-container">
