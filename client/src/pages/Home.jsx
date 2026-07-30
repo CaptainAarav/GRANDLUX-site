@@ -1,4 +1,3 @@
-import React from 'react'
 import { NavLink } from 'react-router-dom'
 import './Home.css'
 
@@ -39,7 +38,7 @@ function Home() {
                     <a className="email-link" href="mailto:info@grandlux.lu">info@grandlux.lu</a>
                 </div>
                 <div className="contact-container">
-                    <i className="fa-jelly-fill fa-regular fa-thumbs-up"></i>
+                    <i className="fa-regular fa-thumbs-up"></i>
                     <p className="contact-title">Socials</p>
                     <div className="social-links">
                         <a href="https://www.youtube.com/@jw8974.1?si=fkTOjJielpoq7hCM"><i className="fa-brands fa-youtube"></i></a>

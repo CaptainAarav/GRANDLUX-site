@@ -5,7 +5,7 @@ import Downloads from './pages/Downloads'
 import GetStarted from './pages/GetStarted'
 import Login from './pages/Login'
 import MyAccount from './pages/MyAccount'
-import { useAuth } from './authcontext'
+import { useAuth } from './useAuth'
 import ProtectedRoute from './ProtectedRoute'
 import './App.css'
 import { signOut } from 'firebase/auth'
@@ -44,7 +44,6 @@ function App() {
                 <Route path="/downloads" element={<Downloads />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/getstarted" element={<GetStarted />} />
-                <Route path='/myaccount' element={<MyAccount />} />
                 <Route path="/myaccount" element={<ProtectedRoute><MyAccount /></ProtectedRoute>} />
             </Routes>
 

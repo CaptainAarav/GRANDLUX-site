@@ -1,6 +1,5 @@
-import React from "react";
 import { NavLink } from 'react-router-dom'
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import './Login.css'
 import {
   signInWithEmailAndPassword,
@@ -10,7 +9,7 @@ import {
   browserSessionPersistence,
 } from 'firebase/auth'
 import { auth, googleProvider } from '../firebase'
-import { useAuth } from '../authcontext'
+import { useAuth } from '../useAuth'
 
 function Login() {
 	const { user, loading } = useAuth()
@@ -18,28 +17,23 @@ function Login() {
 	const [password, setPassword] = useState("")
 	const [rememberMe, setRememberMe] = useState(false)
 	const [error, setError] = useState("")
-	const [redirectPort, setRedirectPort] = useState(null)
 	const [showPassword, setShowPassword] = useState(false)
+	const redirectPort = new URLSearchParams(window.location.search).get('redirect_port')
 
-	useEffect(() => {
-		const params = new URLSearchParams(window.location.search)
-		setRedirectPort(params.get('redirect_port'))
-	}, [])
-
-	useEffect(() => {
-		if (!loading && user) {
-			completeLogin(user).catch((err) => setError(err.message))
-		}
-	}, [user, loading, redirectPort])
-
-	async function completeLogin(firebaseUser) {
+	const completeLogin = useCallback(async (firebaseUser) => {
 		const token = await firebaseUser.getIdToken()
 		if (redirectPort) {
 			window.location.href = `http://127.0.0.1:${redirectPort}/?token=${token}`
 		} else {
 			window.location.href = '/'
 		}
-	}
+	}, [redirectPort])
+
+	useEffect(() => {
+		if (!loading && user) {
+			completeLogin(user).catch((err) => setError(err.message))
+		}
+	}, [user, loading, completeLogin])
 
 	async function handleEmailSubmit(e) {
 		e.preventDefault()

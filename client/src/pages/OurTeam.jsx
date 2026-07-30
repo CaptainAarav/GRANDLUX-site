@@ -1,4 +1,3 @@
-import React from 'react'
 import './OurTeam.css'
 
 const team = [
@@ -12,7 +11,7 @@ function OurTeam() {
     return (
         <section className="team-section">
             <h1 className="team-title">Meet our team</h1>
-            <h2 className="team-subtitle">Our Team that run this beatiful VA</h2>
+            <h2 className="team-subtitle">Our Team that run this beautiful VA</h2>
 
             <div className="team-grid">
                 {team.map((member) => (

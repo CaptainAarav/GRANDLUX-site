@@ -38,13 +38,13 @@ No test framework exists in either package.
 
 ## Quirks
 
-- **Client uses Font Awesome via npm** (`@fortawesome/fontawesome-free`), imported as a CSS module in `client/src/main.jsx`. Icons use `fa-*` classes directly (e.g. `fa-solid fa-eye`). No CDN link in `index.html`.
+- **Client uses Font Awesome 7 via npm** (`@fortawesome/fontawesome-free`), imported as a CSS module in `client/src/main.jsx`. Icons use `fa-*` classes directly (e.g. `fa-solid fa-eye`). FA7 renders icons via `::before` pseudo-elements that inherit `font-family` — any global `*::before` override will show squares instead of icons.
 - **Express 5** uses a different routing and middleware API than Express 4. Notably, Express 5 does not bundle `path-to-regexp` the same way, and route param behavior differs.
-- **dotenv** is loaded inside `server/src/firebase.js` (not in `server/src/index.js`). Env vars like `PORT` are available only after requiring firebase.
+- **dotenv** is loaded at the top of `server/src/index.js`. The `.env` file only sets `PORT=4000`.
 - **No proxy** from Vite dev server to the Express backend. The client makes direct API calls to whichever origin/port the server runs on.
 - **Google Fonts**: Inter (body) and Playfair Display (headings) loaded in `client/index.html`.
-- **App.jsx line 47-48** has a duplicate `/myaccount` route — the unprotected one matches first, so `ProtectedRoute` wrapping is effectively dead.
-- Server has only one endpoint: `POST /api/flights/ping` (auth-protected).
+- **Server** has one endpoint: `POST /api/flights/ping` (auth-protected via Firebase token).
+- **useAuth** is exported from `client/src/useAuth.js` (separate from `authcontext.jsx` which only exports `AuthProvider`). `AuthContext` lives in its own file at `client/src/AuthContext.js`.
 
 ## Verification
 

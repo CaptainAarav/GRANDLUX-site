@@ -1,6 +1,5 @@
-import React from "react";
 import { NavLink } from 'react-router-dom'
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import './Login.css'
 import {
   createUserWithEmailAndPassword,
@@ -17,12 +16,7 @@ function GetStarted() {
 	const [password, setPassword] = useState("")
 	const [confirmPassword, setConfirmPassword] = useState("")
 	const [error, setError] = useState("")
-	const [redirectPort, setRedirectPort] = useState(null)
-
-	useEffect(() => {
-		const params = new URLSearchParams(window.location.search)
-		setRedirectPort(params.get('redirect_port'))
-	}, [])
+	const redirectPort = new URLSearchParams(window.location.search).get('redirect_port')
 
 	async function completeLogin(userCredential) {
 		const token = await userCredential.user.getIdToken()
