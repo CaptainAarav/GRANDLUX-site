@@ -1,4 +1,4 @@
-const { auth } = require('../firebase')
+const admin = require('../firebase')
 
 async function verifyToken(req, res, next) {
 	const authHeader = req.headers.authorization
@@ -7,7 +7,7 @@ async function verifyToken(req, res, next) {
 	}
 	const token = authHeader.split('Bearer ')[1]
 	try {
-		const decoded = await auth.verifyIdToken(token)
+		const decoded = await admin.auth().verifyIdToken(token)
 		req.pilotId = decoded.uid
 		next()
 	} catch (err) {
