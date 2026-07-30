@@ -10,21 +10,30 @@ import {
   browserSessionPersistence,
 } from 'firebase/auth'
 import { auth, googleProvider } from '../firebase'
+import { useAuth } from '../authcontext'
 
 function Login() {
+	const { user, loading } = useAuth()
 	const [email, setEmail] = useState("")
 	const [password, setPassword] = useState("")
 	const [rememberMe, setRememberMe] = useState(false)
 	const [error, setError] = useState("")
 	const [redirectPort, setRedirectPort] = useState(null)
+	const [showPassword, setShowPassword] = useState(false)
 
 	useEffect(() => {
 		const params = new URLSearchParams(window.location.search)
 		setRedirectPort(params.get('redirect_port'))
 	}, [])
 
-	async function completeLogin(userCredential) {
-		const token = await userCredential.user.getIdToken()
+	useEffect(() => {
+		if (!loading && user) {
+			completeLogin(user).catch((err) => setError(err.message))
+		}
+	}, [user, loading, redirectPort])
+
+	async function completeLogin(firebaseUser) {
+		const token = await firebaseUser.getIdToken()
 		if (redirectPort) {
 			window.location.href = `http://127.0.0.1:${redirectPort}/?token=${token}`
 		} else {
@@ -35,10 +44,11 @@ function Login() {
 	async function handleEmailSubmit(e) {
 		e.preventDefault()
 		setError('')
+		console.log('About to sign in with:', JSON.stringify(email))
 		try {
 			await setPersistence(auth, rememberMe ? browserLocalPersistence : browserSessionPersistence)
 			const userCredential = await signInWithEmailAndPassword(auth, email, password)
-			completeLogin(userCredential)
+			completeLogin(userCredential.user)
 		} catch (err) {
 			setError(err.message)
 		}
@@ -48,7 +58,7 @@ function Login() {
 		setError('')
 		try {
 			const userCredential = await signInWithPopup(auth, googleProvider)
-			completeLogin(userCredential)
+			completeLogin(userCredential.user)
 		} catch (err) {
 			setError(err.message)
 		}
@@ -74,7 +84,10 @@ function Login() {
 							<label htmlFor="password-input">Password</label>
 							<a className="forgot-password-link" href="">Forgot password?</a>
 						</div>
-						<input value={password} onChange={e => setPassword(e.target.value)} id="password-input" className="input-box" type="password" placeholder="Enter your password" />
+						<div className="password-input-wrapper">
+							<input value={password} onChange={e => setPassword(e.target.value)} id="password-input" className="input-box" type={showPassword ? "text" : "password"} placeholder="Enter your password" />
+							<i className={`fa-solid ${showPassword ? "fa-eye-slash" : "fa-eye"} password-toggle-icon`} onClick={() => setShowPassword(!showPassword)}></i>
+						</div>
 					</div>
 					<div className="alignment-container">
 						<div className="remember-me-container">
