@@ -1,3 +1,7 @@
+*, *::before, *::after {
+	font-family: playfair display, sans-serif;
+}
+
 .background {
     background-color: #F7F3EC;
     min-height: calc(100vh - 160px);
@@ -15,27 +19,136 @@
     width: 360px;
     padding: 40px;
     border-radius: 12px;
-	gap: 20px;
+	gap: 15px;
 }
 
 .title-container {
 	display: flex;
 	align-items: center;
+	flex-direction: column;
 	justify-items: center;
-	gap: 10px;
+	gap: 5px;
 }
 
 .logo {
-	height: 70px;
+	height: 100px;
 }
 
 .title {
 	font-family: playfair display, sans-serif;
     color: #c8262c;
-    font-size: 40px;
+    font-size: 50px;
     font-weight: bold;
+}
+
+.subtitle {
+	font-family: playfair  sans-serif;
+    color: #2B2B29;
+    font-size: 25px;
+    font-weight: bold;
+
 }
 
 .input-box {
 	background-color: #2B2B29;
+	font-family: Inter, sans-serif;
+	padding: 10px 10px;
+	width: 300px;
+	border-radius: 8px;
+	color: #ffffff;
+}
+
+.login-btn {
+    background-color: #c8262c;
+    font-family: Inter, sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    color: #ffffff;
+    border-radius: 8px;
+    transition: color 0.2s ease-in-out;
+	padding: 9px 110px;
+	cursor: pointer;
+	border: none;
+}
+
+.login-btn:hover {
+	background-color: #FE0134;
+}
+
+.divider-container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+}
+
+.line {
+	border-top: 1px solid #55677a;
+	width: 130px;
+}
+
+.divider-text {
+	color: #55677a;
+	font-family: Inter, sans-serif;
+}
+
+.input-container {
+	display: flex;
+	flex-direction: column;
+	align-items: left;
+	gap: 5px;
+}
+
+.password-text-container {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.forgot-password-link {
+	color: #c8262c;
+	font-size: 14px;
+}
+
+.remember-me-container {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+}
+
+.alignment-container {
+	display: flex;
+	flex-direction: column;
+	align-items: left;
+	justify-content: center;
+	gap: 10px;
+}
+
+.remember-checkbox {
+	accent-color: #c8262c;
+	width: 13px;
+	height: 13px;
+}
+
+.google-btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 5px;
+    background-color: transparent;
+    border-radius: 8px;
+    transition: color 0.2s ease-in-out;
+	padding: 8px 50px;
+	cursor: pointer;
+	border: 1px solid #55677a;
+}
+
+.btn-text {
+    font-family: Inter, sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.sign-up-link {
+	color: #c8262c;
 }
