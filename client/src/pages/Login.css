@@ -176,3 +176,17 @@
 .name-row .input-box {
 	width: 100%;
 }
+
+.password-input-wrapper {
+	position: relative;
+	width: 100%;
+}
+
+.password-toggle-icon {
+	position: absolute;
+	right: 12px;
+	top: 50%;
+	transform: translateY(-50%);
+	color: #9aa0a6;
+	cursor: pointer;
+}

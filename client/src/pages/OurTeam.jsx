@@ -4,14 +4,15 @@ import './OurTeam.css'
 const team = [
     { name: 'JW89', role: 'Owner & CEO', image: '/team-jw89.png' },
     { name: 'Rotate & Fly', role: 'Owner', image: '/team-rotateandfly.jpg' },
-    { name: 'Bus5top', role: 'Owner', image: '/team-bus5top.png' },
+    { name: 'Bus5top', role: 'Owner/Dev', image: '/team-bus5top.png' },
+    { name: 'Captain Aarav', role: 'Developer', image: '/team-captain_aarav.png' }
 ]
 
 function OurTeam() {
     return (
         <section className="team-section">
             <h1 className="team-title">Meet our team</h1>
-            <h2 className="team-subtitle">Our Team that founded this beatiful VA</h2>
+            <h2 className="team-subtitle">Our Team that run this beatiful VA</h2>
 
             <div className="team-grid">
                 {team.map((member) => (
