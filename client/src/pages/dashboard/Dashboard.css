@@ -1,0 +1,116 @@
+.dashboard-wrapper {
+	background-color: #F7F3EC;
+	padding: 40px;
+}
+
+.profile-info-container {
+	display: flex;
+	align-items: center;
+	gap: 30px;
+}
+
+.user-pfp {
+	height: 170px;
+	width: 170px;
+	object-fit: cover;
+	border-radius: 50%;
+}
+
+.profile-text-container {
+	display: flex;
+	flex-direction: column;
+	align-items: left;
+	justify-content: center;
+}
+
+.welcome-message {
+	font-family: Inter, sans-serif;
+	color: #55677a;
+	font-weight: 500;
+	font-size: 18px;
+}
+
+.user-name {
+	font-family: playfair display, sans-serif;
+    color: #c8262c;
+    font-size: 50px;
+    font-weight: 500;
+	margin: none;
+}
+
+.rank-title {
+	font-family: Inter, sans-serif;
+	color: #55677a;
+	font-weight: 500;
+	font-size: 13px;
+}
+
+.badge-container {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.user-badge {
+	height: 50px;
+}
+
+.user-rank {
+	font-family: Inter, sans-serif;
+    color: #c8262c;
+    font-size: 25px;
+    font-weight: 700;
+	margin: none;
+}
+
+.user-stats-container {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 16px;
+	margin-top: 30px;
+}
+
+.stat-card {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	background-color: #ffffff;
+	border-radius: 12px;
+	padding: 20px;
+	flex: 1;
+	min-width: 180px;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.stat-card i {
+	font-size: 28px;
+	color: #c8262c;
+}
+
+.stat-card-text-container {
+	display: flex;
+	flex-direction: column;
+}
+
+.stat-card-title {
+	font-family: Inter, sans-serif;
+	color: #55677a;
+	font-size: 13px;
+	font-weight: 500;
+	margin: 0;
+}
+
+.stat-card-stat {
+	font-family: Inter, sans-serif;
+	color: #1b1d22;
+	font-size: 22px;
+	font-weight: 700;
+	margin: 2px 0 0 0;
+}
+
+.stat-card-detail {
+	font-family: Inter, sans-serif;
+	color: #9aa0a6;
+	font-size: 12px;
+	margin: 0;
+}
