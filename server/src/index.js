@@ -5,6 +5,7 @@ const helmet = require('helmet')
 const flightsRouter = require('./routes/flights')
 const authRouter = require('./routes/auth')
 const pilotsRouter = require('./routes/pilots')
+const flightPlansRouter = require('./routes/flightPlans')
 
 const app = express()
 app.use(helmet())
@@ -14,6 +15,7 @@ app.use(express.json())
 app.use('/api/flights', flightsRouter)
 app.use('/api/auth', authRouter)
 app.use('/api/pilots', pilotsRouter)
+app.use('/api/flight-plans', flightPlansRouter)
 
 app.use((err, req, res, next) => {
 	console.error('Unhandled error:', err)

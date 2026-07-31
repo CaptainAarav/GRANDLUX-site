@@ -1,6 +1,6 @@
 const express = require('express')
 const verifyToken = require('../middleware/verifyToken')
-const pool = require('../db')
+const { pool, ensurePilot } = require('../db')
 const { countryForIcao } = require('../icaoCountries')
 
 const router = express.Router()
@@ -17,10 +17,6 @@ function haversineNm(lat1, lon1, lat2, lon2) {
 	return EARTH_RADIUS_NM * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
 }
 
-function parseIcao(value) {
-	return typeof value === 'string' ? value.trim().toUpperCase().slice(0, 4) : null
-}
-
 function validFlightId(value) {
 	const id = Number(value)
 	return Number.isInteger(id) && id > 0 ? id : null
@@ -28,11 +24,24 @@ function validFlightId(value) {
 
 router.post('/start', verifyToken, async (req, res, next) => {
 	try {
-		const departureIcao = parseIcao(req.body.departure_icao)
-		const arrivalIcao = parseIcao(req.body.arrival_icao)
+		const flightPlanId = validFlightId(req.body.flight_plan_id)
+		if (flightPlanId == null) {
+			return res.status(400).json({ error: 'Invalid flight_plan_id' })
+		}
+		await ensurePilot(req.pilotId)
+		const claimRes = await pool.query(
+			`UPDATE flight_plans SET status = 'in_progress'
+			 WHERE id = $1 AND pilot_uid = $2 AND status = 'pending'
+			 RETURNING departure_icao, arrival_icao`,
+			[flightPlanId, req.pilotId]
+		)
+		if (claimRes.rowCount === 0) {
+			return res.status(404).json({ error: 'Flight plan not found or not startable' })
+		}
+		const plan = claimRes.rows[0]
 		const result = await pool.query(
-			'INSERT INTO flights (pilot_uid, departure_icao, arrival_icao) VALUES ($1, $2, $3) RETURNING id',
-			[req.pilotId, departureIcao, arrivalIcao]
+			'INSERT INTO flights (pilot_uid, departure_icao, arrival_icao, flight_plan_id) VALUES ($1, $2, $3, $4) RETURNING id',
+			[req.pilotId, plan.departure_icao, plan.arrival_icao, flightPlanId]
 		)
 		res.status(201).json({ flight_id: result.rows[0].id })
 	} catch (err) {
@@ -120,13 +129,19 @@ router.post('/end', verifyToken, async (req, res, next) => {
 		const result = await pool.query(
 			`UPDATE flights SET ended_at = now()
 			 WHERE id = $1 AND pilot_uid = $2
-			 RETURNING departure_icao, arrival_icao`,
+			 RETURNING departure_icao, arrival_icao, flight_plan_id`,
 			[flightId, req.pilotId]
 		)
 		if (result.rowCount === 0) {
 			return res.status(404).json({ error: 'Flight not found' })
 		}
 		const flight = result.rows[0]
+		if (flight.flight_plan_id != null) {
+			await pool.query(
+				"UPDATE flight_plans SET status = 'flown' WHERE id = $1",
+				[flight.flight_plan_id]
+			)
+		}
 		for (const icao of [flight.departure_icao, flight.arrival_icao]) {
 			const country = icao ? countryForIcao(icao) : null
 			if (!country) continue

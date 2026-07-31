@@ -7,6 +7,15 @@ CREATE TABLE pilots (
     created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
+CREATE TABLE flight_plans (
+    id SERIAL PRIMARY KEY,
+    pilot_uid TEXT NOT NULL REFERENCES pilots(firebase_uid),
+    departure_icao TEXT NOT NULL,
+    arrival_icao TEXT NOT NULL,
+    status TEXT NOT NULL DEFAULT 'pending',
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
 CREATE TABLE flights (
     id SERIAL PRIMARY KEY,
     pilot_uid TEXT NOT NULL REFERENCES pilots(firebase_uid),
@@ -18,7 +27,8 @@ CREATE TABLE flights (
     last_lat REAL,
     last_lon REAL,
     last_alt_agl REAL,
-    landing_rate_fpm REAL
+    landing_rate_fpm REAL,
+    flight_plan_id INTEGER REFERENCES flight_plans(id)
 );
 
 CREATE TABLE pilot_countries (
