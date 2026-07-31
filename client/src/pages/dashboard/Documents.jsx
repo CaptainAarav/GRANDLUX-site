@@ -2,7 +2,9 @@ import './Documents.css'
 
 function Documents() {
     return (
-        <h1>Documents</h1>
+        <div className='dashboard-wrapper'>
+            <h1>Documents</h1>
+        </div>
     )
 }
 

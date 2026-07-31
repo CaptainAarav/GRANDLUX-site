@@ -2,7 +2,9 @@ import './Resources.css'
 
 function Resources() {
     return (
-        <h1>Resources</h1>
+        <div className='dashboard-wrapper'>
+            <h1>Resources</h1>
+        </div>
     )
 }
 

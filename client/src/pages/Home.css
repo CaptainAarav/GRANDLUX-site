@@ -110,6 +110,16 @@
     background-color: #FE0134;
 }
 
+.hero-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    min-width: 170px;
+    color: #c8262c;
+    font-size: 26px;
+}
+
 .beginnings-section {
     padding: 130px 50px;
     display: flex;

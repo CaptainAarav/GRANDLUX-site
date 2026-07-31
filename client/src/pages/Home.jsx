@@ -20,12 +20,14 @@ function Home() {
                 <h1 className="hero-title">GrandLux</h1>
                 <h2 className="hero-subtitle">The Luxembourgish way of flying with perfection</h2>
                 <section className="hero-btns-container">
-                    {!loading && user
-                        ? <button className="hero-btn" onClick={() => signOut(auth)}>Log Out</button>
-                        : <>
-                            <NavLink className="hero-btn" to="/getstarted">Join Now</NavLink>
-                            <NavLink className="hero-btn" to="/login">Log In</NavLink>
-                        </>
+                    {loading
+                        ? <div className="hero-loading"><i className="fa-solid fa-circle-notch fa-spin"></i></div>
+                        : user
+                            ? <button className="hero-btn" onClick={() => signOut(auth)}>Log Out</button>
+                            : <>
+                                <NavLink className="hero-btn" to="/getstarted">Join Now</NavLink>
+                                <NavLink className="hero-btn" to="/login">Log In</NavLink>
+                            </>
                     }
                 </section>
             </section>

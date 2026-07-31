@@ -2,7 +2,9 @@ import './Profile.css'
 
 function Profile() {
     return (
-        <h1>My Profile</h1>
+        <div className='dashboard-wrapper'>
+            <h1>My Profile</h1>
+        </div>
     )
 }
 
