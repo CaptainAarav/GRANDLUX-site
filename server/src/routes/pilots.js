@@ -1,6 +1,6 @@
 const express = require('express')
 const verifyToken = require('../middleware/verifyToken')
-const pool = require('../db')
+const { pool } = require('../db')
 
 const router = express.Router()
 
@@ -41,7 +41,7 @@ router.get('/me', async (req, res, next) => {
 router.get('/me/flights', async (req, res, next) => {
 	try {
 		const result = await pool.query(
-			'SELECT id, started_at, ended_at, distance_nm FROM flights WHERE pilot_uid = $1 AND ended_at IS NOT NULL ORDER BY started_at DESC',
+			'SELECT id, started_at, ended_at, distance_nm, departure_icao, arrival_icao FROM flights WHERE pilot_uid = $1 AND ended_at IS NOT NULL ORDER BY started_at DESC',
 			[req.pilotId]
 		)
 		res.json(result.rows)

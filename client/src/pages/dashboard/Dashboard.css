@@ -299,28 +299,22 @@
 	background-color: #faf8f3;
 }
 
-.recent-flights-table .fa-eye {
-	color: #c8262c;
-	cursor: pointer;
-}
-
-.status-badge {
-	display: inline-block;
+.recent-flights-empty {
 	font-family: Inter, sans-serif;
-	font-size: 12px;
-	font-weight: 600;
-	border-radius: 999px;
-	padding: 4px 12px;
+	color: #9aa0a6;
+	font-size: 14px;
+	margin: 0;
+	padding: 24px 0;
+	text-align: center;
 }
 
-.status-completed {
-	background-color: #e3f5e9;
-	color: #1a7f37;
-}
-
-.status-scheduled {
-	background-color: #fdf3d7;
-	color: #b07d10;
+.recent-flights-error {
+	font-family: Inter, sans-serif;
+	color: #c8262c;
+	font-size: 14px;
+	margin: 0;
+	padding: 24px 0;
+	text-align: center;
 }
 
 @media (max-width: 1024px) {

@@ -1,7 +1,76 @@
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { useAuth } from '../../hooks/useAuth'
 import './Dashboard.css'
 
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:4000'
+
+async function fetchMe(user) {
+	const token = await user.getIdToken()
+	const res = await fetch(`${API_BASE}/api/pilots/me`, {
+		headers: { Authorization: `Bearer ${token}` },
+	})
+	if (!res.ok) throw new Error('Failed to load profile')
+	return res.json()
+}
+
+async function fetchMyFlights(user) {
+	const token = await user.getIdToken()
+	const res = await fetch(`${API_BASE}/api/pilots/me/flights`, {
+		headers: { Authorization: `Bearer ${token}` },
+	})
+	if (!res.ok) throw new Error('Failed to load flights')
+	return res.json()
+}
+
+function formatHours(hours) {
+	const h = Math.floor(hours)
+	const m = Math.round((hours - h) * 60)
+	return `${h}h ${m}m`
+}
+
+function formatDistance(nm) {
+	return `${Math.round(nm).toLocaleString('en-US')} NM`
+}
+
+function formatDuration(startedAt, endedAt) {
+	const totalMinutes = Math.max(0, Math.floor((new Date(endedAt) - new Date(startedAt)) / 60000))
+	const h = Math.floor(totalMinutes / 60)
+	const m = totalMinutes % 60
+	return `${h}h ${m}m`
+}
+
+function formatDate(iso) {
+	return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+}
+
 function Dashboard() {
+	const { user } = useAuth()
+	const [stats, setStats] = useState(null)
+	const [flights, setFlights] = useState([])
+	const [error, setError] = useState('')
+	const [loading, setLoading] = useState(true)
+
+	useEffect(() => {
+		if (!user) return
+		let ignore = false
+		Promise.all([fetchMe(user), fetchMyFlights(user)])
+			.then(([me, flights]) => {
+				if (ignore) return
+				setStats(me)
+				setFlights(flights)
+				setLoading(false)
+			})
+			.catch((err) => {
+				if (ignore) return
+				setError(err.message)
+				setLoading(false)
+			})
+		return () => {
+			ignore = true
+		}
+	}, [user])
+
 	return (
 		<div className='dashboard-wrapper'>
 			<img className="dash-plane dash-plane-737" src="/liverys/grandlux-737-livery.png" alt="" />
@@ -28,7 +97,7 @@ function Dashboard() {
 					<i className="fa-regular fa-clock"></i>
 					<div className='stat-card-text-container'>
 						<h3 className='stat-card-title'>Total Flight Hours</h3>
-						<p className='stat-card-stat'>98h 15m</p>
+						<p className='stat-card-stat'>{loading || !stats ? '…' : formatHours(stats.total_hours)}</p>
 						<p className='stat-card-detail'>All time</p>
 					</div>
 				</div>
@@ -36,7 +105,7 @@ function Dashboard() {
 					<i className="fa-regular fa-paper-plane"></i>
 					<div className='stat-card-text-container'>
 						<h3 className='stat-card-title'>Total Flights</h3>
-						<p className='stat-card-stat'>45</p>
+						<p className='stat-card-stat'>{loading || !stats ? '…' : stats.total_flights}</p>
 						<p className='stat-card-detail'>All time</p>
 					</div>
 				</div>
@@ -44,7 +113,7 @@ function Dashboard() {
 					<i className="fa-regular fa-map"></i>
 					<div className='stat-card-text-container'>
 						<h3 className='stat-card-title'>Total Distance</h3>
-						<p className='stat-card-stat'>36,842 NM</p>
+						<p className='stat-card-stat'>{loading || !stats ? '…' : formatDistance(stats.total_distance_nm)}</p>
 						<p className='stat-card-detail'>All time</p>
 					</div>
 				</div>
@@ -52,7 +121,7 @@ function Dashboard() {
 					<i className="fa-regular fa-star"></i>
 					<div className='stat-card-text-container'>
 						<h3 className='stat-card-title'>Total Points</h3>
-						<p className='stat-card-stat'>10,663</p>
+						<p className='stat-card-stat'>Coming soon</p>
 						<p className='stat-card-detail'>All time</p>
 					</div>
 				</div>
@@ -60,7 +129,7 @@ function Dashboard() {
 					<i className="fa-regular fa-flag"></i>
 					<div className='stat-card-text-container'>
 						<h3 className='stat-card-title'>Countries Visited</h3>
-						<p className='stat-card-stat'>23</p>
+						<p className='stat-card-stat'>{loading || !stats ? '…' : stats.total_countries_visited}</p>
 						<p className='stat-card-detail'>All time</p>
 					</div>
 				</div>
@@ -105,124 +174,35 @@ function Dashboard() {
 						View All Flights <i className="fa-solid fa-arrow-right"></i>
 					</Link>
 				</div>
-				<div className='recent-flights-table-container'>
-					<table className='recent-flights-table'>
-						<thead>
-							<tr>
-								<th>Callsign</th>
-								<th>Route</th>
-								<th>Aircraft</th>
-								<th>Time</th>
-								<th>Air Time</th>
-								<th>Pax</th>
-								<th>Status</th>
-								<th></th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>GRX101</td>
-								<td>EGLL → LUXL</td>
-								<td>A320-200</td>
-								<td>14:30</td>
-								<td>1h 45m</td>
-								<td>150</td>
-								<td><span className='status-badge status-completed'>Completed</span></td>
-								<td><i className="fa-regular fa-eye"></i></td>
-							</tr>
-							<tr>
-								<td>GRX220</td>
-								<td>LUXL → LFPG</td>
-								<td>737-800</td>
-								<td>09:15</td>
-								<td>0h 58m</td>
-								<td>172</td>
-								<td><span className='status-badge status-completed'>Completed</span></td>
-								<td><i className="fa-regular fa-eye"></i></td>
-							</tr>
-							<tr>
-								<td>GRX087</td>
-								<td>EDDF → LUXL</td>
-								<td>A320-200</td>
-								<td>18:40</td>
-								<td>1h 12m</td>
-								<td>138</td>
-								<td><span className='status-badge status-completed'>Completed</span></td>
-								<td><i className="fa-regular fa-eye"></i></td>
-							</tr>
-							<tr>
-								<td>GRX233</td>
-								<td>LUXL → EHAM</td>
-								<td>737-800</td>
-								<td>07:55</td>
-								<td>1h 05m</td>
-								<td>165</td>
-								<td><span className='status-badge status-completed'>Completed</span></td>
-								<td><i className="fa-regular fa-eye"></i></td>
-							</tr>
-							<tr>
-								<td>GRX118</td>
-								<td>EIDW → LUXL</td>
-								<td>A320-200</td>
-								<td>16:20</td>
-								<td>1h 55m</td>
-								<td>149</td>
-								<td><span className='status-badge status-completed'>Completed</span></td>
-								<td><i className="fa-regular fa-eye"></i></td>
-							</tr>
-							<tr>
-								<td>GRX242</td>
-								<td>LUXL → LEBL</td>
-								<td>A320-200</td>
-								<td>11:40</td>
-								<td>2h 05m</td>
-								<td>178</td>
-								<td><span className='status-badge status-completed'>Completed</span></td>
-								<td><i className="fa-regular fa-eye"></i></td>
-							</tr>
-							<tr>
-								<td>GRX076</td>
-								<td>LOWW → LUXL</td>
-								<td>737-800</td>
-								<td>20:10</td>
-								<td>1h 15m</td>
-								<td>155</td>
-								<td><span className='status-badge status-completed'>Completed</span></td>
-								<td><i className="fa-regular fa-eye"></i></td>
-							</tr>
-							<tr>
-								<td>GRX261</td>
-								<td>LUXL → LIRF</td>
-								<td>A320-200</td>
-								<td>13:25</td>
-								<td>1h 50m</td>
-								<td>168</td>
-								<td><span className='status-badge status-completed'>Completed</span></td>
-								<td><i className="fa-regular fa-eye"></i></td>
-							</tr>
-							<tr>
-								<td>GRX094</td>
-								<td>EKCH → LUXL</td>
-								<td>737-800</td>
-								<td>15:35</td>
-								<td>1h 30m</td>
-								<td>142</td>
-								<td><span className='status-badge status-completed'>Completed</span></td>
-								<td><i className="fa-regular fa-eye"></i></td>
-							</tr>
-							<tr>
-								<td>GRX289</td>
-								<td>LUXL → LGAV</td>
-								<td>737-800</td>
-								<td>09:50</td>
-								<td>2h 35m</td>
-								<td>181</td>
-								<td><span className='status-badge status-completed'>Completed</span></td>
-								<td><i className="fa-regular fa-eye"></i></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
+				{error && <p className='recent-flights-error'>{error}</p>}
+				{!error && loading && <p className='recent-flights-empty'>Loading…</p>}
+				{!error && !loading && flights.length === 0 && (
+					<p className='recent-flights-empty'>No flights yet. Create a booking and start flying!</p>
+				)}
+				{!error && !loading && flights.length > 0 && (
+					<div className='recent-flights-table-container'>
+						<table className='recent-flights-table'>
+							<thead>
+								<tr>
+									<th>Date</th>
+									<th>Route</th>
+									<th>Distance</th>
+									<th>Duration</th>
+								</tr>
+							</thead>
+							<tbody>
+								{flights.map((flight) => (
+									<tr key={flight.id}>
+										<td>{formatDate(flight.started_at)}</td>
+										<td>{flight.departure_icao} → {flight.arrival_icao}</td>
+										<td>{formatDistance(flight.distance_nm)}</td>
+										<td>{formatDuration(flight.started_at, flight.ended_at)}</td>
+									</tr>
+								))}
+							</tbody>
+						</table>
+					</div>
+				)}
 			</section>
 		</div>
 	)
