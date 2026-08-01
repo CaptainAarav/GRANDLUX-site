@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../../hooks/useAuth'
+import { formatHours, formatDistance, formatDuration, formatDate } from '../../lib/format'
 import './Dashboard.css'
 
 const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:4000'
@@ -21,27 +22,6 @@ async function fetchMyFlights(user) {
 	})
 	if (!res.ok) throw new Error('Failed to load flights')
 	return res.json()
-}
-
-function formatHours(hours) {
-	const h = Math.floor(hours)
-	const m = Math.round((hours - h) * 60)
-	return `${h}h ${m}m`
-}
-
-function formatDistance(nm) {
-	return `${Math.round(nm).toLocaleString('en-US')} NM`
-}
-
-function formatDuration(startedAt, endedAt) {
-	const totalMinutes = Math.max(0, Math.floor((new Date(endedAt) - new Date(startedAt)) / 60000))
-	const h = Math.floor(totalMinutes / 60)
-	const m = totalMinutes % 60
-	return `${h}h ${m}m`
-}
-
-function formatDate(iso) {
-	return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
 }
 
 function Dashboard() {
@@ -137,14 +117,14 @@ function Dashboard() {
 			</section>
 
 			<section className='dashboard-container'>
-				<Link to="/dashboard" className='dashboard-btn'>
+				<Link to="/dashboard/booking" className='dashboard-btn'>
 					<i className="fa-regular fa-paper-plane"></i>
 					<div className='btn-card-text-container'>
 						<h3 className='btn-card-title'>Make a Booking</h3>
 						<p className='btn-card-subtitle'>Create a new booking</p>
 					</div>
 				</Link>
-				<Link to="/flights" className='dashboard-btn'>
+				<Link to="/dashboard/profile/flights" className='dashboard-btn'>
 					<i className="fa-regular fa-calendar"></i>
 					<div className='btn-card-text-container'>
 						<h3 className='btn-card-title'>Your Flights</h3>

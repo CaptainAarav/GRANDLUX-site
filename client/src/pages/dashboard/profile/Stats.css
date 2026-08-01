@@ -1,0 +1,64 @@
+.dashboard-wrapper {
+	background-color: #F7F3EC;
+	flex: 1;
+	padding: 40px;
+}
+
+.stats-error {
+	font-family: Inter, sans-serif;
+	color: #c8262c;
+	font-size: 14px;
+	margin: 20px 0 0 0;
+}
+
+.stats-grid {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 16px;
+	margin-top: 30px;
+}
+
+.stats-card {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	background-color: #ffffff;
+	border-radius: 12px;
+	padding: 20px;
+	flex: 1;
+	min-width: 220px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.stats-card i {
+	font-size: 28px;
+	color: #c8262c;
+}
+
+.stats-card-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.stats-card-title {
+	font-family: Inter, sans-serif;
+	color: #55677a;
+	font-size: 13px;
+	font-weight: 500;
+	margin: 0;
+}
+
+.stats-card-stat {
+	font-family: Inter, sans-serif;
+	color: #1b1d22;
+	font-size: 22px;
+	font-weight: 700;
+	margin: 2px 0 0 0;
+}
+
+.stats-card-detail {
+	font-family: Inter, sans-serif;
+	color: #9aa0a6;
+	font-size: 12px;
+	margin: 0;
+}

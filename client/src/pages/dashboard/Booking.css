@@ -4,23 +4,24 @@
 	padding: 40px;
 }
 
-.flight-plans-container {
+.booking-container {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 16px;
 	margin-top: 30px;
 }
 
-.flight-plans-card {
+.booking-card {
 	background-color: #ffffff;
 	border-radius: 12px;
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 	padding: 24px;
 	flex: 1;
 	min-width: 320px;
+	max-width: 720px;
 }
 
-.flight-plans-title {
+.booking-title {
 	font-family: "Playfair Display", serif;
 	color: #c8262c;
 	font-size: 24px;
@@ -28,14 +29,14 @@
 	margin: 0 0 16px 0;
 }
 
-.flight-plan-form {
+.booking-form {
 	display: flex;
 	align-items: center;
 	gap: 10px;
 	flex-wrap: wrap;
 }
 
-.flight-plan-input {
+.booking-input {
 	flex: 1;
 	min-width: 140px;
 	padding: 10px 14px;
@@ -49,16 +50,16 @@
 	text-transform: uppercase;
 }
 
-.flight-plan-input:focus {
+.booking-input:focus {
 	border-color: #c8262c;
 }
 
-.flight-plan-arrow {
+.booking-arrow {
 	color: #c9a227;
 	font-size: 14px;
 }
 
-.flight-plan-btn {
+.booking-btn {
 	background-color: #c8262c;
 	color: #ffffff;
 	font-family: Inter, sans-serif;
@@ -71,55 +72,32 @@
 	transition: background-color 0.2s ease-in-out;
 }
 
-.flight-plan-btn:hover:not(:disabled) {
+.booking-btn:hover:not(:disabled) {
 	background-color: #FE0134;
 }
 
-.flight-plan-btn:disabled {
+.booking-btn:disabled {
 	opacity: 0.6;
 	cursor: not-allowed;
 }
 
-.flight-plan-error {
+.booking-hint {
+	font-family: Inter, sans-serif;
+	color: #9aa0a6;
+	font-size: 13px;
+	margin: 14px 0 0 0;
+}
+
+.booking-error {
 	font-family: Inter, sans-serif;
 	color: #c8262c;
 	font-size: 13px;
 	margin: 12px 0 0 0;
 }
 
-.flight-plan-success {
+.booking-success {
 	font-family: Inter, sans-serif;
 	color: #1a7f37;
 	font-size: 13px;
 	margin: 12px 0 0 0;
-}
-
-.flight-plan-list {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-	display: flex;
-	flex-direction: column;
-	gap: 8px;
-}
-
-.flight-plan-item {
-	background-color: #faf8f3;
-	border: 1px solid #e8e6e1;
-	border-radius: 8px;
-	padding: 12px 16px;
-}
-
-.flight-plan-route {
-	font-family: Inter, sans-serif;
-	font-size: 14px;
-	font-weight: 600;
-	color: #1b1d22;
-}
-
-.flight-plans-empty {
-	font-family: Inter, sans-serif;
-	color: #9aa0a6;
-	font-size: 14px;
-	margin: 0;
 }
