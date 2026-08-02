@@ -6,39 +6,53 @@ import './Flights.css'
 
 const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:4000'
 
-async function fetchUpcoming(user) {
+async function authedGet(user, path) {
 	const token = await user.getIdToken()
-	const res = await fetch(`${API_BASE}/api/flight-plans/mine`, {
+	const res = await fetch(`${API_BASE}${path}`, {
 		headers: { Authorization: `Bearer ${token}` },
 	})
-	if (!res.ok) throw new Error('Failed to load upcoming flights')
+	if (!res.ok) throw new Error(`Failed to load ${path}`)
 	return res.json()
 }
 
-async function fetchRecent(user) {
-	const token = await user.getIdToken()
-	const res = await fetch(`${API_BASE}/api/pilots/me/flights`, {
-		headers: { Authorization: `Bearer ${token}` },
-	})
-	if (!res.ok) throw new Error('Failed to load flights')
-	return res.json()
+function validTypesForRoute(destinations, departureIcao, arrivalIcao) {
+	const rows = destinations.filter(
+		(d) => d.icao === departureIcao || d.icao === arrivalIcao,
+	)
+	if (rows.length === 0) return null
+	let valid = null
+	for (const row of rows) {
+		const types = new Set(row.aircraft_type)
+		valid = valid === null ? types : new Set([...valid].filter((t) => types.has(t)))
+	}
+	return [...valid]
 }
 
 function Flights() {
 	const { user } = useAuth()
 	const [upcoming, setUpcoming] = useState([])
 	const [recent, setRecent] = useState([])
+	const [fleet, setFleet] = useState([])
+	const [destinations, setDestinations] = useState([])
+	const [dispatch, setDispatch] = useState({})
 	const [error, setError] = useState('')
 	const [loading, setLoading] = useState(true)
 
 	useEffect(() => {
 		if (!user) return
 		let ignore = false
-		Promise.all([fetchUpcoming(user), fetchRecent(user)])
-			.then(([up, rec]) => {
+		Promise.all([
+			authedGet(user, '/api/flight-plans/mine'),
+			authedGet(user, '/api/pilots/me/flights'),
+			authedGet(user, '/api/fleet'),
+			authedGet(user, '/api/destinations'),
+		])
+			.then(([up, rec, ft, ds]) => {
 				if (ignore) return
 				setUpcoming(up)
 				setRecent(rec)
+				setFleet(ft)
+				setDestinations(ds)
 				setLoading(false)
 			})
 			.catch((err) => {
@@ -50,6 +64,55 @@ function Flights() {
 			ignore = true
 		}
 	}, [user])
+
+	function matchingAircraft(plan) {
+		const valid = validTypesForRoute(destinations, plan.departure_icao, plan.arrival_icao)
+		return fleet.filter((a) => valid === null || valid.includes(a.aircraft_type))
+	}
+
+	function handleSelect(planId, registration) {
+		setDispatch((prev) => ({
+			...prev,
+			[planId]: { registration, error: '', sending: false, sent: false },
+		}))
+	}
+
+	async function handleDispatch(planId, registration) {
+		const aircraft = fleet.find((a) => a.registration === registration)
+		if (!aircraft) return
+		setDispatch((prev) => ({
+			...prev,
+			[planId]: { registration, error: '', sending: true, sent: false },
+		}))
+		try {
+			const token = await user.getIdToken()
+			const res = await fetch(`${API_BASE}/api/flight-plans/${planId}/dispatch`, {
+				method: 'PATCH',
+				headers: {
+					Authorization: `Bearer ${token}`,
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({ fleet_id: aircraft.id }),
+			})
+			const data = await res.json().catch(() => ({}))
+			if (!res.ok) {
+				setDispatch((prev) => ({
+					...prev,
+					[planId]: { registration, error: data.error || 'Dispatch failed', sending: false, sent: false },
+				}))
+				return
+			}
+			setDispatch((prev) => ({
+				...prev,
+				[planId]: { registration, error: '', sending: false, sent: true },
+			}))
+		} catch (err) {
+			setDispatch((prev) => ({
+				...prev,
+				[planId]: { registration, error: err.message, sending: false, sent: false },
+			}))
+		}
+	}
 
 	return (
 		<div className='dashboard-wrapper'>
@@ -64,12 +127,76 @@ function Flights() {
 				)}
 				{!error && !loading && upcoming.length > 0 && (
 					<ul className='flights-list'>
-						{upcoming.map((plan) => (
-							<li key={plan.id} className='flights-item'>
-								<span className='flights-route'>{plan.departure_icao} → {plan.arrival_icao}</span>
-								<span className='flights-status'>Pending</span>
-							</li>
-						))}
+								{upcoming.map((plan) => {
+									const priority = matchingAircraft(plan)
+									const priorityFree = priority.filter((a) => !a.in_use)
+									const showFallback = priorityFree.length === 0
+									const fallback = showFallback ? fleet.filter((a) => !a.in_use) : []
+									const d = dispatch[plan.id]
+									const currentReg = d
+										? d.registration
+										: priorityFree.length === 1
+											? priorityFree[0].registration
+											: ''
+									return (
+										<li key={plan.id} className='flights-item flights-item--plan'>
+											<div className='flights-plan-main'>
+												<span className='flights-route'>{plan.departure_icao} → {plan.arrival_icao}</span>
+												<span className='flights-status'>Pending</span>
+											</div>
+											{d?.sent ? (
+												<div className='dispatch dispatch--sent'>
+													<span className='dispatch-sent-badge'>
+														<i className='fa-solid fa-check'></i> Dispatched · {d.registration}
+													</span>
+												</div>
+											) : (
+												<div className='dispatch'>
+													<div className='dispatch-row'>
+														<select
+															className='dispatch-select'
+															value={currentReg}
+															onChange={(e) => handleSelect(plan.id, e.target.value)}
+															disabled={priority.length === 0 && fallback.length === 0}
+														>
+															<option value=''>Select aircraft…</option>
+															<optgroup label='Priority aircraft'>
+																{priority.map((a) => (
+																	<option key={a.id} value={a.registration} disabled={a.in_use}>
+																		{a.registration} · {a.aircraft_type}{a.in_use ? ' — in use' : ''}
+																	</option>
+																))}
+															</optgroup>
+															{showFallback && fallback.length > 0 && (
+																<optgroup label='Other available aircraft'>
+																	{fallback.map((a) => (
+																		<option key={a.id} value={a.registration}>
+																			{a.registration} · {a.aircraft_type}
+																		</option>
+																	))}
+																</optgroup>
+															)}
+														</select>
+														<button
+															className='dispatch-btn'
+															onClick={() => handleDispatch(plan.id, currentReg)}
+															disabled={!currentReg || d?.sending}
+														>
+															{d?.sending ? 'Dispatching…' : 'Dispatch'}
+														</button>
+													</div>
+													{!showFallback && priority.some((a) => a.in_use) && (
+														<p className='dispatch-hint'>Greyed-out aircraft are already in use and can't be assigned.</p>
+													)}
+													{showFallback && (
+														<p className='dispatch-hint'>All priority aircraft are in use — you can dispatch any other available aircraft instead.</p>
+													)}
+													{d?.error && <p className='dispatch-error'>{d.error}</p>}
+												</div>
+											)}
+										</li>
+									)
+								})}
 					</ul>
 				)}
 			</section>

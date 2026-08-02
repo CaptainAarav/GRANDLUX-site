@@ -109,7 +109,8 @@ router.post('/ping', verifyToken, async (req, res, next) => {
 				last_lat = COALESCE($3, last_lat),
 				last_lon = COALESCE($4, last_lon),
 				last_alt_agl = COALESCE($5, last_alt_agl),
-				landing_rate_fpm = COALESCE(landing_rate_fpm, $6)
+				landing_rate_fpm = COALESCE(landing_rate_fpm, $6),
+				last_ping_at = now()
 			 WHERE id = $1 AND pilot_uid = $7`,
 			[flightId, distanceToAdd, lat ?? null, lon ?? null, altAgl ?? null, landingRate, req.pilotId]
 		)
@@ -142,6 +143,10 @@ router.post('/end', verifyToken, async (req, res, next) => {
 				[flight.flight_plan_id]
 			)
 		}
+		await pool.query(
+			'UPDATE pilots SET current_location_icao = $1 WHERE firebase_uid = $2',
+			[flight.arrival_icao, req.pilotId]
+		)
 		for (const icao of [flight.departure_icao, flight.arrival_icao]) {
 			const country = icao ? countryForIcao(icao) : null
 			if (!country) continue

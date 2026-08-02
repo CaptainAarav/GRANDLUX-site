@@ -24,7 +24,7 @@ router.get('/me', async (req, res, next) => {
 			[req.pilotId]
 		)
 		const pilotRes = await pool.query(
-			'SELECT first_name, last_name, callsign, pfp_url FROM pilots WHERE firebase_uid = $1',
+			'SELECT first_name, last_name, callsign, pfp_url, current_location_icao FROM pilots WHERE firebase_uid = $1',
 			[req.pilotId]
 		)
 		const statsRes = await pool.query(STATS_QUERY, [req.pilotId])
@@ -45,6 +45,32 @@ router.get('/me/flights', async (req, res, next) => {
 			[req.pilotId]
 		)
 		res.json(result.rows)
+	} catch (err) {
+		next(err)
+	}
+})
+
+router.patch('/me/location', async (req, res, next) => {
+	try {
+		const icao = typeof req.body.icao === 'string' ? req.body.icao.trim().toUpperCase() : ''
+		if (!/^[A-Z0-9]{4}$/.test(icao)) {
+			return res.status(400).json({ error: 'Valid 4-character icao is required' })
+		}
+		const isHub = icao === 'ELLX'
+		if (!isHub) {
+			const destRes = await pool.query(
+				'SELECT 1 FROM destinations WHERE icao = $1 AND active = true',
+				[icao]
+			)
+			if (destRes.rowCount === 0) {
+				return res.status(400).json({ error: 'Destination is outside the network' })
+			}
+		}
+		const result = await pool.query(
+			'UPDATE pilots SET current_location_icao = $1 WHERE firebase_uid = $2 RETURNING current_location_icao',
+			[icao, req.pilotId]
+		)
+		res.json({ current_location_icao: result.rows[0].current_location_icao })
 	} catch (err) {
 		next(err)
 	}
