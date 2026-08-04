@@ -25,7 +25,7 @@ function Home() {
                         : user
                             ? <button className="hero-btn" onClick={() => signOut(auth)}>Log Out</button>
                             : <>
-                                <NavLink className="hero-btn" to="/getstarted">Join Now</NavLink>
+                                <NavLink className="hero-btn hero-btn--flag" to="/getstarted">Join Now</NavLink>
                                 <NavLink className="hero-btn" to="/login">Log In</NavLink>
                             </>
                     }

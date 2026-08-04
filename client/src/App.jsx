@@ -8,6 +8,8 @@ import GetStarted from './pages/GetStarted'
 import Login from './pages/Login'
 import Dashboard from './pages/dashboard/Dashboard'
 import Booking from './pages/dashboard/Booking'
+import Dispatch from './pages/dashboard/booking/Dispatch'
+import FlightDetails from './pages/dashboard/booking/FlightDetails'
 import ProfileStats from './pages/dashboard/profile/Stats'
 import ProfileFlights from './pages/dashboard/profile/Flights'
 import ProfilePreferences from './pages/dashboard/profile/Preferences'
@@ -83,7 +85,7 @@ function App() {
                                             <button className="getstarted-btn" onClick={() => signOut(auth)}>Log Out</button>
                                         </>
                                     )
-                                    : <NavLink className="getstarted-btn" to="/getstarted" onClick={closeMenu}>Join Now</NavLink>
+                                    : <NavLink className="getstarted-btn getstarted-btn--flag" to="/getstarted" onClick={closeMenu}>Join Now</NavLink>
                             )}
                         </>
                     )}
@@ -101,6 +103,8 @@ function App() {
                     <Route path="/auth/callback" element={<AuthCallback />} />
                     <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
                     <Route path="/dashboard/booking" element={<ProtectedRoute><Booking /></ProtectedRoute>} />
+                    <Route path="/dashboard/booking/dispatch/:icao" element={<ProtectedRoute><Dispatch /></ProtectedRoute>} />
+                    <Route path="/dashboard/booking/flight/:id" element={<ProtectedRoute><FlightDetails /></ProtectedRoute>} />
                     <Route path="/dashboard/profile" element={<Navigate to="/dashboard/profile/stats" replace />} />
                     <Route path="/dashboard/profile/stats" element={<ProtectedRoute><ProfileStats /></ProtectedRoute>} />
                     <Route path="/dashboard/profile/flights" element={<ProtectedRoute><ProfileFlights /></ProtectedRoute>} />

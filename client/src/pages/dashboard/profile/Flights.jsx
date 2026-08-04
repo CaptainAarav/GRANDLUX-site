@@ -2,7 +2,10 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../../../hooks/useAuth'
 import { formatDate, formatDistance, formatDuration } from '../../../lib/format'
+import { matchingAircraft } from '../../../lib/aircraft'
+import DispatchPicker from '../../../components/DispatchPicker'
 import './Flights.css'
+import '../../../components/DispatchPicker.css'
 
 const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:4000'
 
@@ -13,19 +16,6 @@ async function authedGet(user, path) {
 	})
 	if (!res.ok) throw new Error(`Failed to load ${path}`)
 	return res.json()
-}
-
-function validTypesForRoute(destinations, departureIcao, arrivalIcao) {
-	const rows = destinations.filter(
-		(d) => d.icao === departureIcao || d.icao === arrivalIcao,
-	)
-	if (rows.length === 0) return null
-	let valid = null
-	for (const row of rows) {
-		const types = new Set(row.aircraft_type)
-		valid = valid === null ? types : new Set([...valid].filter((t) => types.has(t)))
-	}
-	return [...valid]
 }
 
 function Flights() {
@@ -64,11 +54,6 @@ function Flights() {
 			ignore = true
 		}
 	}, [user])
-
-	function matchingAircraft(plan) {
-		const valid = validTypesForRoute(destinations, plan.departure_icao, plan.arrival_icao)
-		return fleet.filter((a) => valid === null || valid.includes(a.aircraft_type))
-	}
 
 	function handleSelect(planId, registration) {
 		setDispatch((prev) => ({
@@ -128,10 +113,8 @@ function Flights() {
 				{!error && !loading && upcoming.length > 0 && (
 					<ul className='flights-list'>
 								{upcoming.map((plan) => {
-									const priority = matchingAircraft(plan)
+									const priority = matchingAircraft(fleet, destinations, plan.departure_icao, plan.arrival_icao)
 									const priorityFree = priority.filter((a) => !a.in_use)
-									const showFallback = priorityFree.length === 0
-									const fallback = showFallback ? fleet.filter((a) => !a.in_use) : []
 									const d = dispatch[plan.id]
 									const currentReg = d
 										? d.registration
@@ -149,34 +132,22 @@ function Flights() {
 													<span className='dispatch-sent-badge'>
 														<i className='fa-solid fa-check'></i> Dispatched · {d.registration}
 													</span>
+													<Link className='flights-link' to={`/dashboard/booking/flight/${plan.id}`}>
+														View in Your Flights →
+													</Link>
 												</div>
 											) : (
 												<div className='dispatch'>
 													<div className='dispatch-row'>
-														<select
-															className='dispatch-select'
+														<DispatchPicker
+															fleet={fleet}
+															destinations={destinations}
+															departureIcao={plan.departure_icao}
+															arrivalIcao={plan.arrival_icao}
 															value={currentReg}
-															onChange={(e) => handleSelect(plan.id, e.target.value)}
-															disabled={priority.length === 0 && fallback.length === 0}
-														>
-															<option value=''>Select aircraft…</option>
-															<optgroup label='Priority aircraft'>
-																{priority.map((a) => (
-																	<option key={a.id} value={a.registration} disabled={a.in_use}>
-																		{a.registration} · {a.aircraft_type}{a.in_use ? ' — in use' : ''}
-																	</option>
-																))}
-															</optgroup>
-															{showFallback && fallback.length > 0 && (
-																<optgroup label='Other available aircraft'>
-																	{fallback.map((a) => (
-																		<option key={a.id} value={a.registration}>
-																			{a.registration} · {a.aircraft_type}
-																		</option>
-																	))}
-																</optgroup>
-															)}
-														</select>
+															onChange={(reg) => handleSelect(plan.id, reg)}
+															disabled={d?.sending}
+														/>
 														<button
 															className='dispatch-btn'
 															onClick={() => handleDispatch(plan.id, currentReg)}
@@ -185,12 +156,6 @@ function Flights() {
 															{d?.sending ? 'Dispatching…' : 'Dispatch'}
 														</button>
 													</div>
-													{!showFallback && priority.some((a) => a.in_use) && (
-														<p className='dispatch-hint'>Greyed-out aircraft are already in use and can't be assigned.</p>
-													)}
-													{showFallback && (
-														<p className='dispatch-hint'>All priority aircraft are in use — you can dispatch any other available aircraft instead.</p>
-													)}
 													{d?.error && <p className='dispatch-error'>{d.error}</p>}
 												</div>
 											)}

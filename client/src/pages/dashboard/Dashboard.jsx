@@ -164,19 +164,37 @@ function Dashboard() {
 						<table className='recent-flights-table'>
 							<thead>
 								<tr>
-									<th>Date</th>
+									<th>Date &amp; Time</th>
+									<th>Callsign</th>
+									<th>Flight Number</th>
 									<th>Route</th>
+									<th>Aircraft</th>
 									<th>Distance</th>
 									<th>Duration</th>
+									<th>Landing Rate</th>
 								</tr>
 							</thead>
 							<tbody>
 								{flights.map((flight) => (
 									<tr key={flight.id}>
-										<td>{formatDate(flight.started_at)}</td>
+										<td>
+											{formatDate(flight.started_at)}
+											<span className='recent-flights-time'>{new Date(flight.started_at).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false })}</span>
+										</td>
+										<td>{flight.callsign || '—'}</td>
+										<td>{flight.flight_number || '—'}</td>
 										<td>{flight.departure_icao} → {flight.arrival_icao}</td>
+										<td>
+											{flight.registration ? (
+												<>
+													{flight.registration}
+													{flight.aircraft_type && <span className='recent-flights-type'>{flight.aircraft_type}</span>}
+												</>
+											) : '—'}
+										</td>
 										<td>{formatDistance(flight.distance_nm)}</td>
 										<td>{formatDuration(flight.started_at, flight.ended_at)}</td>
+										<td>{flight.landing_rate_fpm != null ? `${Math.round(flight.landing_rate_fpm)} fpm` : '—'}</td>
 									</tr>
 								))}
 							</tbody>

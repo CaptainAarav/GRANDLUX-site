@@ -9,6 +9,8 @@ const flightPlansRouter = require('./routes/flightPlans')
 const destinationsRouter = require('./routes/destinations')
 const weatherRouter = require('./routes/weather')
 const fleetRouter = require('./routes/fleet')
+const simbriefRouter = require('./routes/simbrief')
+const imagekitRouter = require('./routes/imagekit')
 
 const app = express()
 app.use(helmet())
@@ -22,6 +24,8 @@ app.use('/api/flight-plans', flightPlansRouter)
 app.use('/api/destinations', destinationsRouter)
 app.use('/api/weather', weatherRouter)
 app.use('/api/fleet', fleetRouter)
+app.use('/api/simbrief', simbriefRouter)
+app.use('/api/imagekit', imagekitRouter)
 
 app.use((err, req, res, next) => {
 	console.error('Unhandled error:', err)

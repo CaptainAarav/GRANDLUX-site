@@ -3,3 +3,178 @@
 	flex: 1;
 	padding: 40px;
 }
+
+.preferences-section {
+	background-color: #ffffff;
+	border-radius: 12px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+	padding: 24px;
+	margin-top: 30px;
+	max-width: 720px;
+}
+
+.preferences-section-title {
+	font-family: "Playfair Display", serif;
+	color: #c8262c;
+	font-size: 22px;
+	font-weight: bold;
+	margin: 0 0 12px 0;
+}
+
+.preferences-hint {
+	font-family: Inter, sans-serif;
+	font-size: 14px;
+	color: #9aa0a6;
+	margin: 0 0 16px 0;
+	line-height: 1.5;
+}
+
+.preferences-row {
+	display: flex;
+	gap: 10px;
+	align-items: center;
+}
+
+.preferences-input {
+	font-family: Inter, sans-serif;
+	font-size: 14px;
+	padding: 10px 14px;
+	border: 1px solid #d8d5cf;
+	border-radius: 8px;
+	background: #ffffff;
+	color: #1b1d22;
+	flex: 1;
+	max-width: 300px;
+}
+
+.preferences-input:focus {
+	outline: none;
+	border-color: #c8262c;
+}
+
+.preferences-btn {
+	font-family: Inter, sans-serif;
+	font-size: 13px;
+	font-weight: 600;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 8px;
+	background: #c8262c;
+	color: #ffffff;
+	cursor: pointer;
+}
+
+.preferences-btn:hover:not(:disabled) {
+	background: #a81f24;
+}
+
+.preferences-btn:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+.preferences-success {
+	font-family: Inter, sans-serif;
+	font-size: 13px;
+	font-weight: 600;
+	color: #1e7d32;
+	margin: 14px 0 0 0;
+}
+
+.preferences-error {
+	font-family: Inter, sans-serif;
+	font-size: 13px;
+	color: #c8262c;
+	margin: 14px 0 0 0;
+}
+
+.preferences-pfp-row {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+}
+
+.preferences-pfp {
+	width: 72px;
+	height: 72px;
+	border-radius: 50%;
+	object-fit: cover;
+	border: 2px solid #e8e6e1;
+	background-color: #faf8f3;
+}
+
+.preferences-btn--file {
+	display: inline-block;
+	padding: 10px 20px;
+}
+
+.preferences-btn--file input {
+	display: none;
+}
+
+.preferences-btn--file:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+.preferences-grid {
+	display: grid;
+	grid-template-columns: 160px minmax(0, 300px);
+	row-gap: 12px;
+	column-gap: 12px;
+	align-items: center;
+	margin-bottom: 16px;
+}
+
+.preferences-field-label {
+	font-family: Inter, sans-serif;
+	font-size: 13px;
+	color: #55677a;
+}
+
+.preferences-select {
+	font-family: Inter, sans-serif;
+	font-size: 14px;
+	padding: 10px 14px;
+	border: 1px solid #d8d5cf;
+	border-radius: 8px;
+	background: #ffffff;
+	color: #1b1d22;
+	margin-bottom: 16px;
+	max-width: 300px;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.preferences-select:focus {
+	outline: none;
+	border-color: #c8262c;
+}
+
+.preferences-toggle-row {
+	display: flex;
+	align-items: flex-start;
+	gap: 12px;
+	cursor: pointer;
+	margin-bottom: 16px;
+}
+
+.preferences-toggle-row span {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+}
+
+.preferences-toggle-row strong {
+	font-family: Inter, sans-serif;
+	font-size: 14px;
+	color: #1b1d22;
+}
+
+.preferences-toggle-row .preferences-hint {
+	margin: 0;
+}
+
+.preferences-section .preferences-btn {
+	margin-top: 4px;
+}

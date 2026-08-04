@@ -4,7 +4,11 @@ CREATE TABLE pilots (
     last_name TEXT,
     callsign TEXT,
     pfp_url TEXT,
-    created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    current_location_icao TEXT NOT NULL DEFAULT 'ELLX',
+    simbrief_userid TEXT,
+    distance_unit TEXT NOT NULL DEFAULT 'nm',
+    email_notifications BOOLEAN NOT NULL DEFAULT true
 );
 
 CREATE TABLE flight_plans (
@@ -13,7 +17,13 @@ CREATE TABLE flight_plans (
     departure_icao TEXT NOT NULL,
     arrival_icao TEXT NOT NULL,
     status TEXT NOT NULL DEFAULT 'pending',
-    created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    fleet_id INTEGER REFERENCES fleet(id),
+    dispatched_at TIMESTAMPTZ,
+    callsign TEXT,
+    flight_number TEXT,
+    dispatch_params JSONB,
+    simbrief_ofp JSONB
 );
 
 CREATE TABLE flights (
@@ -43,7 +53,7 @@ CREATE TABLE destinations (
     name TEXT NOT NULL,
     lat REAL NOT NULL,
     lon REAL NOT NULL,
-    aircraft_type TEXT NOT NULL,
+    aircraft_type TEXT[] NOT NULL,
     notes TEXT,
     active BOOLEAN NOT NULL DEFAULT true
 );
@@ -54,8 +64,6 @@ CREATE TABLE fleet (
     aircraft_type TEXT NOT NULL,
     active BOOLEAN NOT NULL DEFAULT true
 );
-
-ALTER TABLE flight_plans ADD COLUMN IF NOT EXISTS fleet_id INTEGER REFERENCES fleet(id);
 
 INSERT INTO destinations (icao, name, lat, lon, aircraft_type, notes) VALUES
 ('OMDB', 'Dubai International', 25.2532, 55.3657, 'A21N LR', NULL),

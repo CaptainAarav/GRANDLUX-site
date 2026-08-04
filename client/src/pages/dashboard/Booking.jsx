@@ -1,9 +1,11 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import { useAuth } from '../../hooks/useAuth'
 import { formatDistance, formatHours } from '../../lib/format'
+import { haversineNM, estimateHours, greatCirclePath, makeMarkerIcon, makePilotIcon, ROUTE_DEFAULT, ROUTE_SELECTED } from '../../lib/map'
+import { WeatherStatus } from '../../components/Weather'
 import './Booking.css'
 
 const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:4000'
@@ -27,76 +29,6 @@ const COUNTRY_NAMES = {
 function countryName(code) {
 	return COUNTRY_NAMES[code] || code
 }
-
-const EARTH_RADIUS_NM = 3440.065
-const toRad = (deg) => (deg * Math.PI) / 180
-const toDeg = (rad) => (rad * 180) / Math.PI
-
-function haversineNM(lat1, lon1, lat2, lon2) {
-	const dLat = toRad(lat2 - lat1)
-	const dLon = toRad(lon2 - lon1)
-	const a = Math.sin(dLat / 2) ** 2 + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) ** 2
-	return 2 * EARTH_RADIUS_NM * Math.asin(Math.sqrt(a))
-}
-
-function estimateHours(distanceNM) {
-	return distanceNM / 450 + 0.5
-}
-
-// Returns [lat, lon] pairs — Leaflet's L.marker/L.polyline order, NOT [lon, lat].
-function greatCirclePath(lat1, lon1, lat2, lon2, segments = 64) {
-	const phi1 = toRad(lat1)
-	const phi2 = toRad(lat2)
-	const lam1 = toRad(lon1)
-	const lam2 = toRad(lon2)
-	const d = Math.acos(Math.min(1, Math.sin(phi1) * Math.sin(phi2) + Math.cos(phi1) * Math.cos(phi2) * Math.cos(lam2 - lam1)))
-	const coords = []
-	for (let i = 0; i <= segments; i += 1) {
-		if (d < 1e-9) {
-			coords.push([lat1, lon1])
-			continue
-		}
-		const f = i / segments
-		const A = Math.sin((1 - f) * d) / Math.sin(d)
-		const B = Math.sin(f * d) / Math.sin(d)
-		const x = A * Math.cos(phi1) * Math.cos(lam1) + B * Math.cos(phi2) * Math.cos(lam2)
-		const y = A * Math.cos(phi1) * Math.sin(lam1) + B * Math.cos(phi2) * Math.sin(lam2)
-		const z = A * Math.sin(phi1) + B * Math.sin(phi2)
-		coords.push([toDeg(Math.atan2(z, Math.sqrt(x * x + y * y))), toDeg(Math.atan2(y, x))])
-	}
-	return coords
-}
-
-function makeMarkerHtml(icao, isHub) {
-	const iconClass = isHub ? 'fa-house' : 'fa-plane-departure'
-	return (
-		`<span class="glx-marker-circle"><i class="fa-solid ${iconClass} glx-marker-icon"></i></span>` +
-		`<span class="glx-marker-label">${icao}</span>`
-	)
-}
-
-function makeMarkerIcon(icao, isHub) {
-	return L.divIcon({
-		className: `glx-marker${isHub ? ' glx-marker--hub' : ''}`,
-		html: makeMarkerHtml(icao, isHub),
-		iconSize: [36, 36],
-		iconAnchor: [18, 18],
-	})
-}
-
-function makePilotIcon(icao) {
-	return L.divIcon({
-		className: 'glx-marker glx-marker--pilot',
-		html:
-			'<span class="glx-marker-circle glx-marker-circle--pilot"><i class="fa-solid fa-person glx-marker-icon"></i></span>' +
-			`<span class="glx-marker-label">${icao}</span>`,
-		iconSize: [36, 36],
-		iconAnchor: [18, 18],
-	})
-}
-
-const ROUTE_DEFAULT = { color: '#c8262c', weight: 1.2, opacity: 0.35, interactive: false }
-const ROUTE_SELECTED = { color: '#c8262c', weight: 3, opacity: 0.95, interactive: false }
 
 const OWM_BASE = 'https://tile.openweathermap.org/map'
 const OWM_LAYERS = [
@@ -136,6 +68,16 @@ async function fetchMe(user) {
 	return data
 }
 
+async function fetchActivePlan(user) {
+	const token = await user.getIdToken()
+	const res = await fetch(`${API_BASE}/api/flight-plans/active`, {
+		headers: { Authorization: `Bearer ${token}` },
+	})
+	const data = await res.json()
+	if (!res.ok) throw new Error(data.error || 'Failed to check active flight')
+	return data
+}
+
 async function patchLocation(user, icao) {
 	const token = await user.getIdToken()
 	const res = await fetch(`${API_BASE}/api/pilots/me/location`, {
@@ -171,36 +113,14 @@ async function fetchWeather(user, icao) {
 	return data
 }
 
-function RiskBadge({ label, value }) {
-	const risk = value ? value.toLowerCase() : null
-	return (
-		<span className={`booking-risk${risk ? ` booking-risk--${risk}` : ' booking-risk--none'}`}>
-			Estimated {label} risk: {risk ? risk.charAt(0).toUpperCase() + risk.slice(1) : 'unavailable'}
-		</span>
-	)
-}
-
-function WeatherStatus({ status, metar, icing, turbulence }) {
-	if (status === 'loading') {
-		return <p className='booking-weather-value booking-weather-value--muted'>Loading…</p>
-	}
-	if (status === 'error' || (!metar && !icing && !turbulence)) {
-		return <p className='booking-weather-value booking-weather-value--muted'>Weather unavailable</p>
-	}
-	return (
-		<div className='booking-weather-block-body'>
-			{metar ? <code className='booking-weather-value'>{metar}</code> : null}
-			<div className='booking-risks'>
-				<RiskBadge label='icing' value={icing} />
-				<RiskBadge label='turbulence' value={turbulence} />
-			</div>
-		</div>
-	)
-}
-
 function Booking() {
 	const { user } = useAuth()
 	const navigate = useNavigate()
+	const [searchParams] = useSearchParams()
+	// `?new=1` lands on the map even when a flight is already active (used by
+	// "Make additional booking"); otherwise an active flight short-circuits
+	// straight to its details page.
+	const skipSmartRedirect = searchParams.get('new') === '1'
 	const mapContainerRef = useRef(null)
 	const mapRef = useRef(null)
 	const markersRef = useRef([])
@@ -235,23 +155,35 @@ function Booking() {
 	useEffect(() => {
 		if (!user) return
 		let ignore = false
-		Promise.all([fetchDestinations(user), fetchMe(user)])
-			.then(([destData, meData]) => {
-				if (ignore) return
-				destinationsRef.current = destData
-				setDestinations(destData)
-				setCurrentLocationIcao(meData.current_location_icao || HUB.icao)
-				setLoading(false)
-			})
-			.catch((err) => {
-				if (ignore) return
-				setLoadError(err.message)
-				setLoading(false)
-			})
+		async function init() {
+			if (!skipSmartRedirect) {
+				try {
+					const activePlan = await fetchActivePlan(user)
+					if (ignore) return
+					if (activePlan) {
+						navigate(`/dashboard/booking/flight/${activePlan.id}`, { replace: true })
+						return
+					}
+				} catch {
+					// Smart-entry check is best-effort — fall through to the map.
+				}
+			}
+			const [destData, meData] = await Promise.all([fetchDestinations(user), fetchMe(user)])
+			if (ignore) return
+			destinationsRef.current = destData
+			setDestinations(destData)
+			setCurrentLocationIcao(meData.current_location_icao || HUB.icao)
+			setLoading(false)
+		}
+		init().catch((err) => {
+			if (ignore) return
+			setLoadError(err.message)
+			setLoading(false)
+		})
 		return () => {
 			ignore = true
 		}
-	}, [user])
+	}, [user, skipSmartRedirect, navigate])
 
 	function handleRetry() {
 		setLoading(true)
@@ -522,7 +454,7 @@ function Booking() {
 		setCreating(true)
 		try {
 			await createFlightPlan(user, departure.icao, selected.icao)
-			navigate('/dashboard/profile/flights')
+			navigate(`/dashboard/booking/dispatch/${selected.icao}`)
 		} catch (err) {
 			setBookingError(err.message)
 		} finally {

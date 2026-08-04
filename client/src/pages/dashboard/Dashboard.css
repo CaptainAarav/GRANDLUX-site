@@ -260,6 +260,7 @@
 .recent-flights-table-container {
 	flex: 1;
 	overflow-y: auto;
+	overflow-x: auto;
 	min-height: 0;
 }
 
@@ -281,6 +282,7 @@
 	background-color: #ffffff;
 	position: sticky;
 	top: 0;
+	white-space: nowrap;
 }
 
 .recent-flights-table td {
@@ -289,6 +291,21 @@
 	font-size: 14px;
 	padding: 12px;
 	border-bottom: 1px solid #f0efe9;
+	white-space: nowrap;
+}
+
+.recent-flights-time {
+	display: block;
+	font-size: 12px;
+	color: #9aa0a6;
+	margin-top: 2px;
+}
+
+.recent-flights-type {
+	display: block;
+	font-size: 12px;
+	color: #9aa0a6;
+	margin-top: 2px;
 }
 
 .recent-flights-table tbody tr:last-child td {

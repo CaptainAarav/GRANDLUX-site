@@ -1,0 +1,434 @@
+.flight-loading {
+	font-family: Inter, sans-serif;
+	color: #9aa0a6;
+	font-size: 14px;
+}
+
+.flight-error {
+	font-family: Inter, sans-serif;
+	color: #c8262c;
+	font-size: 14px;
+	margin: 0 0 16px 0;
+}
+
+.flight-back-link {
+	font-family: Inter, sans-serif;
+	font-size: 13px;
+	color: #c8262c;
+	font-weight: 600;
+	text-decoration: none;
+}
+
+.flight-back-link:hover {
+	text-decoration: underline;
+}
+
+/* Header: status + countdown + live UTC clock */
+.vamsys-header {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 16px;
+	margin-bottom: 20px;
+	flex-wrap: wrap;
+}
+
+.vamsys-title {
+	font-family: "Playfair Display", serif;
+	color: #c8262c;
+	font-size: 28px;
+	font-weight: bold;
+	margin: 0;
+}
+
+.vamsys-title-route {
+	font-size: 20px;
+	color: #1b1d22;
+}
+
+.vamsys-sub {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	font-family: Inter, sans-serif;
+	font-size: 13px;
+	color: #8a8f98;
+	margin: 6px 0 0 0;
+}
+
+.vamsys-status {
+	font-family: Inter, sans-serif;
+	font-size: 11px;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	padding: 3px 10px;
+	border-radius: 999px;
+}
+
+.vamsys-status--pending {
+	background-color: #fff3cd;
+	color: #856404;
+}
+
+.vamsys-status--in_progress {
+	background-color: #d1ecf1;
+	color: #0c5460;
+}
+
+.vamsys-status--flown {
+	background-color: #d4edda;
+	color: #155724;
+}
+
+.vamsys-header-right {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+	flex-wrap: wrap;
+}
+
+.vamsys-clock,
+.vamsys-countdown {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	gap: 2px;
+	background-color: #1b1d22;
+	border-radius: 10px;
+	padding: 8px 14px;
+}
+
+.vamsys-clock-label {
+	font-family: Inter, sans-serif;
+	font-size: 10px;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	color: #9aa0a6;
+}
+
+.vamsys-clock-value {
+	font-family: "Playfair Display", serif;
+	font-size: 18px;
+	font-weight: bold;
+	color: #f7f3ec;
+	line-height: 1;
+}
+
+/* Layout */
+.flight-grid {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) 280px;
+	gap: 24px;
+	align-items: start;
+}
+
+.flight-main {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	min-width: 0;
+}
+
+.flight-map {
+	height: 380px;
+	border-radius: 12px;
+	overflow: hidden;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+	background-color: #e8e6e1;
+}
+
+.flight-wpt-icon {
+	background-color: #c8262c;
+	border: 1px solid #ffffff;
+	border-radius: 50%;
+	box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25);
+}
+
+/* Cards */
+.vamsys-card {
+	background-color: #ffffff;
+	border-radius: 12px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+	padding: 20px 24px;
+}
+
+.vamsys-card-header {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 12px;
+	margin-bottom: 14px;
+}
+
+.vamsys-card-title {
+	font-family: "Playfair Display", serif;
+	color: #1b1d22;
+	font-size: 18px;
+	font-weight: bold;
+	margin: 0;
+}
+
+.vamsys-card-subtitle {
+	font-family: Inter, sans-serif;
+	font-size: 12px;
+	color: #9aa0a6;
+}
+
+.vamsys-fields {
+	display: flex;
+	flex-direction: column;
+}
+
+.vamsys-row {
+	display: flex;
+	justify-content: space-between;
+	gap: 16px;
+	padding: 8px 0;
+	border-bottom: 1px solid #f0ede6;
+}
+
+.vamsys-row:last-child {
+	border-bottom: none;
+}
+
+.vamsys-row-label {
+	font-family: Inter, sans-serif;
+	font-size: 13px;
+	color: #8a8f98;
+	flex-shrink: 0;
+}
+
+.vamsys-row-value {
+	font-family: Inter, sans-serif;
+	font-size: 13px;
+	font-weight: 600;
+	color: #1b1d22;
+	text-align: right;
+	word-break: break-word;
+}
+
+/* OFP summary groups */
+.vamsys-group {
+	margin-bottom: 16px;
+}
+
+.vamsys-group-title {
+	font-family: Inter, sans-serif;
+	font-size: 12px;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	color: #c8262c;
+	margin: 0 0 6px 0;
+}
+
+.vamsys-table {
+	width: 100%;
+	border-collapse: collapse;
+	font-family: Inter, sans-serif;
+}
+
+.vamsys-table th {
+	font-size: 12px;
+	font-weight: 500;
+	color: #8a8f98;
+	text-align: left;
+	padding: 5px 10px 5px 0;
+	width: 40%;
+}
+
+.vamsys-table td {
+	font-size: 13px;
+	font-weight: 600;
+	color: #1b1d22;
+	text-align: right;
+	padding: 5px 0;
+}
+
+/* OFP actions */
+.vamsys-actions-row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+}
+
+.vamsys-btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	padding: 9px 14px;
+	border: 1px solid #e8e6e1;
+	border-radius: 8px;
+	background: #ffffff;
+	font-family: Inter, sans-serif;
+	font-size: 13px;
+	font-weight: 600;
+	color: #1b1d22;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.vamsys-btn:hover:not(:disabled) {
+	background-color: #faf8f3;
+	border-color: #c8262c;
+	color: #c8262c;
+}
+
+.vamsys-btn:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+.flight-ofp-empty {
+	font-family: Inter, sans-serif;
+	font-size: 14px;
+	color: #1b1d22;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.flight-ofp-raw {
+	background-color: #1b1d22;
+	color: #f7f3ec;
+	border-radius: 8px;
+	padding: 16px;
+	font-size: 12px;
+	overflow: auto;
+	max-height: 360px;
+	margin: 14px 0 0 0;
+}
+
+/* Compare stats */
+.flight-stats {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+	gap: 12px;
+}
+
+.flight-stat {
+	background-color: #faf8f3;
+	border: 1px solid #e8e6e1;
+	border-radius: 8px;
+	padding: 14px 16px;
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.flight-stat-value {
+	font-family: "Playfair Display", serif;
+	font-size: 20px;
+	font-weight: bold;
+	color: #1b1d22;
+}
+
+.flight-stat-label {
+	font-family: Inter, sans-serif;
+	font-size: 11px;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	color: #8a8f98;
+}
+
+.flight-stat-hint {
+	font-family: Inter, sans-serif;
+	font-size: 11px;
+	color: #9aa0a6;
+}
+
+/* Sidebar */
+.flight-sidebar {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	position: sticky;
+	top: 20px;
+}
+
+.vamsys-sidecard {
+	background-color: #ffffff;
+	border-radius: 12px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+	padding: 16px;
+}
+
+.vamsys-sidecard-title {
+	font-family: "Playfair Display", serif;
+	font-size: 16px;
+	font-weight: bold;
+	color: #1b1d22;
+	margin: 0 0 12px 0;
+}
+
+.flight-actions {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.flight-action {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	width: 100%;
+	padding: 12px 14px;
+	border: 1px solid #e8e6e1;
+	border-radius: 8px;
+	background: #ffffff;
+	font-family: Inter, sans-serif;
+	font-size: 13px;
+	font-weight: 600;
+	color: #1b1d22;
+	text-decoration: none;
+	cursor: pointer;
+	text-align: left;
+}
+
+.flight-action:hover:not(:disabled) {
+	background-color: #faf8f3;
+	border-color: #c8262c;
+	color: #c8262c;
+}
+
+.flight-action:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+.flight-action-icon {
+	color: #c8262c;
+	width: 16px;
+	text-align: center;
+}
+
+.flight-actions-note {
+	font-family: Inter, sans-serif;
+	font-size: 12px;
+	color: #9aa0a6;
+	margin: 4px 0 0 0;
+	padding: 0 6px;
+}
+
+@media (max-width: 960px) {
+	.flight-grid {
+		grid-template-columns: 1fr;
+	}
+
+	.flight-sidebar {
+		position: static;
+	}
+
+	.vamsys-header-right {
+		justify-content: flex-start;
+	}
+
+	.vamsys-clock,
+	.vamsys-countdown {
+		align-items: flex-start;
+	}
+}
